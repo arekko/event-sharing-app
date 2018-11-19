@@ -1,2 +1,3 @@
-# social-media-app
-social-media-app
+# Event sharing app
+
+some info...

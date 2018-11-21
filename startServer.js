@@ -18,7 +18,7 @@ const ms = require('./utils/multer');
 
 const storage = ms.createMulterStorage();
 
-const api = require('./api')
+const api = require('./api');
 
 
 
@@ -28,7 +28,6 @@ module.exports = startServer = async () => {
     await db.createConnection();
     // We create connection here
     console.log('connected to mysql');
-
 
 
     // Middleware

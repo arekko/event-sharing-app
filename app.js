@@ -10,13 +10,8 @@ const passport = require("passport");
 const constants = require("./constants");
 require("dotenv").config();
 
-// database setting
-const db = require("./utils/database");
-const connection = db.createConnection();
-const app = express();
 
-// multer storage
-const ms = require("./utils/multer");
+const app = express();
 
 const api = require("./api");
 
@@ -55,14 +50,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser(function(user, done) {
-  console.log('serialization')
-  console.log(user.uId)
+  console.log('serialization');
+  console.log(user.uId);
   done(null, user.uId);
 });
 
 // used to deserialize the user
 passport.deserializeUser(function(uId, done) {
-  console.log('desirialization')
+  console.log('desirialization');
 
   done(null, uId)
   // User.findById(id, function(err, user) {
@@ -70,7 +65,7 @@ passport.deserializeUser(function(uId, done) {
   // });
 });
 
-const pwdLocal = require('./utils/passport/passport-local')()
+require('./utils/passport/passport-local')();
 
 
 

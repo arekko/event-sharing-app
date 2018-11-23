@@ -1,7 +1,7 @@
 const publicApi = require('./public');
 const userApi = require('./user');
 const eventApi = require('./event');
-const routes = require('./routes')
+const routes = require('./routes');
 
 const api = (server) => {
     server.use('/api/v1/public', publicApi);

@@ -42,15 +42,15 @@ registerBtn.addEventListener("click", e => {
 // Login logic
 const loginForm = document.getElementById("login-form");
 const loginBtn = document.getElementById("login-submit-btn");
-let username = document.getElementById('login-username')
-let password = document.getElementById('login-password')
+let username = document.getElementById('login-username');
+let password = document.getElementById('login-password');
 
 const sendLoginForm = async e => {
   e.preventDefault();
-  username = username.value
-  password = password.value
+  username = username.value;
+  password = password.value;
 
-  console.log(username)
+  console.log(username);
   const loginSettings = {
     method: "POST",
     body: {

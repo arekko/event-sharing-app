@@ -17,6 +17,7 @@
     "url": "https://github.com/arekko/event-sharing-app/issues"
   },
   "dependencies": {
+    "argon2": "^0.19.3",
     "body-parser": "^1.18.3",
     "connect-redis": "^3.4.0",
     "consolidate": "^0.15.1",

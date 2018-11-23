@@ -3,6 +3,7 @@ const db = require("../utils/database");
 // const connection = db.createConnection();
 const uuidv4 = require("uuid/v4");
 const passport = require("passport");
+const argon2 = require('argon2');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -29,7 +30,7 @@ const isLoggedIn = (req, res, next) => {
 
   // if they aren't redirect them to the home page
   res.redirect("/login");
-}
+};
 
 
 
@@ -50,12 +51,20 @@ router.post(
     // failureFlash: true // allow flash messages
   })
 );
-
+// @TODO add some time and picture sizes
 router.post("/registration", upload.single("avatar"), async (req, res) => {
   const connection = await db.createConnection();
-
+  let hashPassword;
   const email = req.body.email;
   const username = req.body.username;
+  try {
+    hashPassword = await argon2.hash(req.body.password);
+
+  } catch (e) {
+    console.error(e)
+  }
+
+  console.log(hashPassword);
 
   const userId = uuidv4();
   const userData = [];
@@ -64,11 +73,11 @@ router.post("/registration", upload.single("avatar"), async (req, res) => {
   userData.push(req.body.firstname);
   userData.push(req.body.lastname);
   userData.push(req.body.email);
-  userData.push(req.body.password);
+  userData.push(hashPassword);
   userData.push(
     `http://localhost:3000/uploads/original-img:${req.file.originalname}`
   );
-
+  // @TODO move it to model folder
   const [usernameRows] = await connection.execute(
     "SELECT * FROM user WHERE username = ?",
     [username]

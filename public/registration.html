@@ -4,33 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main.css" />
     <title>Document</title>
   </head>
   <body>
-    <h3>Registation</h3>
+    <div class="register-container">
+      <h3>Registation</h3>
 
-    <form action="" class="register-form">
-      <input type="text" name="username" placeholder="Username" />
-      <input type="text" name="firstname" placeholder="Firstname" />
-      <input type="text" name="lastname" placeholder="Lastname" />
-      <input type="text" name="email" placeholder="email" />
-      <input type="text" name="city" placeholder="City" />
-      <input type="text" name="country" placeholder="Country" />
-      <input type="text" name="age" placeholder="Age" />
-      <input type="password" name="password" placeholder="Password" />
-      <input type="password" name="password2" placeholder="Confirm password" />
-      <input type="file" name="avatar" />
-
-      <textarea
-        rows="4"
-        cols="50"
-        name="comment"
-        form="usrform"
-      >Enter you bio here...</textarea>
-      <input type="submit" value="Register" class="register-submit-btn">
-    </form>
-
+      <form action="" class="register-form" id="register-form" name="register-form" method="POST" enctype="multipart/form-data">
+        <input type="text" name="username" placeholder="Username" />
+        <input type="text" name="firstname" placeholder="Firstname" />
+        <input type="text" name="lastname" placeholder="Lastname" />
+        <input type="text" name="email" placeholder="email" />
+        <input type="password" name="password" placeholder="Password" />
+        <input
+          type="password"
+          name="password2"
+          placeholder="Confirm password"
+        />
+        <input type="file" name="avatar" />
+        <input type="submit" value="Register" class="register-submit-btn" />
+      </form>
+      <div id="register-errors"></div>
+    </div>
 
     <script src="js/main.js"></script>
   </body>

@@ -2,3 +2,14 @@ form {
   display: flex;
   flex-direction: column;
 }
+
+
+.register-container {
+  width: 30%;
+  margin: 0 auto;
+}
+
+.login-container {
+  width: 30%;
+  margin: 0 auto;
+}

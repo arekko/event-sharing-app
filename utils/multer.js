@@ -14,6 +14,5 @@ const createMulterStorage = () => {
     return  multer({storage: storage});
 };
 
-module.exports = {
-    createMulterStorage
-};
+module.exports = createMulterStorage
+    

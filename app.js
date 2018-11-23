@@ -10,6 +10,7 @@ const passport = require("passport");
 const constants = require("./constants");
 require("dotenv").config();
 
+const db = require('./utils/database');
 
 const app = express();
 
@@ -49,17 +50,21 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser((user, done) => {
   console.log('serialization');
   console.log(user.uId);
   done(null, user.uId);
 });
 
 // used to deserialize the user
-passport.deserializeUser(function(uId, done) {
-  console.log('desirialization');
+passport.deserializeUser(async (uId, done) => {
+  const connection = await db.createConnection();
+  const [usernameRows] = await connection.execute(
+      "SELECT * FROM user WHERE uId = ?",
+      [uId]
+  );
 
-  done(null, uId)
+  done(null, usernameRows[0])
   // User.findById(id, function(err, user) {
   //   done(err, user);
   // });

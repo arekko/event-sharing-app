@@ -34,11 +34,15 @@ const isLoggedIn = (req, res, next) => {
 
 
 
-router.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "public/index.html"));
-});
+// router.get("/", (req, res) => {
+//   console.log(req.user)
+//   res.sendFile(path.join(__dirname, "..", "public/index.html"));
+// });
 
 router.get("/login", (req, res) => {
+  if (req.user) {
+    res.redirect('/profile')
+  }
   res.sendFile(path.join(__dirname, "..", "public/login.html"));
 });
 
@@ -53,6 +57,12 @@ router.post(
 );
 // @TODO add some time and picture sizes
 router.post("/registration", upload.single("avatar"), async (req, res) => {
+
+  // if user logged in we redirect him to profie page
+  if (req.user) {
+    res.redirect('/profile')
+  }
+
   const connection = await db.createConnection();
   let hashPassword;
   const email = req.body.email;

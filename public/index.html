@@ -1,18 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Event sharing app</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Event sharing app</title>
 </head>
 <body>
 
-  <div>
-    <a href="/login">Login</a>
-    <a href="/registration">Registration</a>
-    <a href="/profile">Profile</a>
-  </div>
-  
+<header class="header">
+    <div class="header-container">
+
+        <span class="header-logo"><i class="fas fa-calendar-alt fa-logo"></i>evoo</span>
+        <ul class="header-auth-btns">
+            <li class="header-auth-btn btn--inline" id="loginBtn">Login</li>
+            <li class="header-auth-btn btn--green" id="signin-btn">Join free</li>
+        </ul>
+    </div>
+</header>
+
+<!--<div>-->
+<!--<a href="/login">Login</a>-->
+<!--<a href="/registration">Registration</a>-->
+<!--<a href="/profile">Profile</a>-->
+<!--</div>-->
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-header">
+            <h3>Login</h3>
+        </div>
+        <form
+                class="login-form"
+                id="login-form"
+                method="POST"
+                enctype="multipart/form-data"
+        >
+
+            <input type="text" name="username" placeholder="Username" id="login-username"/>
+            <input type="password" name="password" placeholder="Password" id="login-password"/>
+            <input type="submit" value="Login" id="login-submit-btn"/>
+        </form>
+        <div id="login-errors"></div>
+
+        <div>
+            or
+            <a href="/registration">register</a>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="js/main.js"></script>
+<script src="js/login.js"></script>
 </body>
 </html>

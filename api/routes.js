@@ -47,12 +47,33 @@ router.get('/login', (req, res) => {
 // process the login form
 router.post(
     '/login',
-    passport.authenticate('local', {
-      successRedirect: '/profile', // redirect to the secure profile section
-      failureRedirect: '/login', // redirect back to the signup page if there is an error
-      // failureFlash: true // allow flash messages
-    }),
-);
+    (req, res, next) => {
+      passport.authenticate('local', (err, user, info) => {
+        console.log(err, user, info);
+
+        if (err) {
+          return next(err);
+        }
+
+        if (!user) {
+          if (req.errors) {
+            console.log(req.errors);
+            return res.send(req.errors);
+          }
+
+        }
+
+        req.logIn(user, (err) =>  {
+          if (err) {
+            return next(err);
+          }
+          return res.send({
+            error: null
+          });
+        });
+      })(req, res, next);
+    });
+
 // @TODO add some time and picture sizes
 router.post('/registration', upload.single('avatar'), async (req, res) => {
 
@@ -115,11 +136,23 @@ router.post('/registration', upload.single('avatar'), async (req, res) => {
   }
 });
 
+/*
+* @GET /logout
+* @desc logout user route
+*
+*
+**/
 router.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
 });
 
+/*
+* @GET /registration
+* @desc logout user route
+*
+*
+**/
 router.get('/registration', (req, res) => {
   if (req.user) {
     res.redirect('/profile');

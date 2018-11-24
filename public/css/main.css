@@ -1,15 +1,177 @@
 form {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+
 }
 
+.header {
+    background-color: #343a40;
+}
 
 .register-container {
-  width: 30%;
-  margin: 0 auto;
+    width: 30%;
+    margin: 0 auto;
 }
 
 .login-container {
-  width: 30%;
-  margin: 0 auto;
+    width: 30%;
+    margin: 0 auto;
 }
+
+/*Header*/
+
+.header-container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    height: 65px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+}
+.fa-logo {
+    font-size: 28px;
+    color: #fff;
+    margin-right: 10px;
+}
+.header-auth-btns {
+    display: flex;
+    list-style: none;
+    align-items: center;
+
+}
+
+.header-auth-btn {
+    margin-left: 15px;
+    font-size: 16px;
+}
+
+.btn--inline {
+    color: #d8d8d8;
+}
+.btn--inline:hover {
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn--green {
+    background-color: #3CB46E;
+    color: #fff;
+    font-size: 16px;
+    line-height: 38px;
+    width: 90px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btn--green:hover {
+    background-color: #37a866;
+    cursor: pointer;
+}
+
+
+/*Modal windows*/
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px; /* Full width */
+    max-width: 100%;
+    height: 600px; /* Full height */
+    max-height: 100%;
+
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+
+}
+
+/* Modal Content */
+.modal-content {
+    border-top: 10px solid #3CB46E;
+    background-color: #343a40;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    overflow: auto;
+
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+.modal-header {
+    padding: .6rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+h3 {
+    margin-bottom: .5rem;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.2;
+    color: inherit;
+    font-size: 1.5rem;
+}
+ /*login*/
+
+
+
+
+#login-username, #login-password{
+    margin: 0 auto;
+    display: block;
+    width: 70%;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+#login-submit-btn {
+
+    width: 30%;
+    margin: 10px auto;
+    display: block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+}
+
+

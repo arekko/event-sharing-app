@@ -1,6 +1,6 @@
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const db = require("../database");
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const db = require('../database');
 const argon2 = require('argon2');
 
 // Local strategy login
@@ -9,9 +9,9 @@ const passportLocal = () => {
       new LocalStrategy(
           {
             // by default, local strategy uses username and password,
-            usernameField: "username",
-            passwordField: "password",
-            passReqToCallback: true // allows us to pass back the entire request to the callback
+            usernameField: 'username',
+            passwordField: 'password',
+            passReqToCallback: true, // allows us to pass back the entire request to the callback
           },
           async (req, username, password, done) => {
 
@@ -25,8 +25,8 @@ const passportLocal = () => {
             const conn = await db.createConnection();
 
             const [usernameRows] = await conn.execute(
-                "SELECT * FROM user WHERE username = ?",
-                [username]
+                'SELECT * FROM user WHERE username = ?',
+                [username],
             );
 
             console.log(usernameRows.length);
@@ -44,7 +44,7 @@ const passportLocal = () => {
                 country,
                 avatar_url,
                 bio,
-                confirmed
+                confirmed,
               } = usernameRows[0]);
 
               console.log(inputPassport);
@@ -57,20 +57,34 @@ const passportLocal = () => {
                   return done(null, user);
                 } else {
                   // password did not match
-                  console.log('password did not match')
+                  console.log('password did not match');
+                  req.errors = {
+                    error: {
+                      path: 'auth',
+                      message: 'Incorrect password'
+                    }
+                  };
+
+                  return done(null, false);
                 }
               } catch (err) {
                 // internal failure
-                console.log(err)
+                console.log(err);
 
               }
 
             } else {
+              req.errors = {
+                error: {
+                  path: 'auth',
+                  message: 'Username not found'
+                }
+              };
               return done(null, false);
             }
-          }
-      )
-  )
+          },
+      ),
+  );
 };
 
 module.exports = passportLocal;

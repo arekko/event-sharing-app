@@ -40,29 +40,4 @@ registerBtn.addEventListener("click", e => {
 });
 
 // Login logic
-const loginForm = document.getElementById("login-form");
-const loginBtn = document.getElementById("login-submit-btn");
-let username = document.getElementById('login-username');
-let password = document.getElementById('login-password');
-
-const sendLoginForm = async e => {
-  e.preventDefault();
-  username = username.value;
-  password = password.value;
-
-  console.log(username);
-  const loginSettings = {
-    method: "POST",
-    body: {
-      username,
-      password
-    }
-  };
-
-  const response = await fetch("/login", loginSettings);
-  console.log(response);
-};
-
-
-loginBtn.addEventListener("click",  sendLoginForm );
 

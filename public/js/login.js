@@ -42,7 +42,7 @@ const sendLoginForm = async e => {
     } else {
       console.log('here');
 
-      window.location.href = "http://localhost:3000/profile";
+      window.location.href = "http://localhost:3000/";
     }
   }
 

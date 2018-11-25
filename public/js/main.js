@@ -1,3 +1,5 @@
+
+
 const headerTemplateForAll = ` <header class="header">
         <div class="header-container">
 
@@ -10,35 +12,42 @@ const headerTemplateForAll = ` <header class="header">
       </header>
     `;
 
-const headerTemplateForUser = ` <header class="header">
+const headerTemplateForUser = (user) => ` <header class="header">
         <div class="header-container">
 
             <span class="header-logo"><i class="fas fa-calendar-alt fa-logo"></i>evoo</span>
             <ul class="header-auth-btns">
-               <li class="header-auth-btn btn--green" id="signin-btn">Logout</li>
+                <li>${user.firstname} ${user.lastname}</li>
+               <li ><a href="/logout" class="header-auth-btn btn--green" id="signin-btn">Logout</a></li>
             </ul>
         </div>
       </header>
     `;
 
+const fetchUser = async () => await (await fetch(
+    'http://localhost:3000/api/v1/user/current')).json();
+let user;
+const main = async () => {
+  try {
+     user = await fetchUser();
+    console.log(user);
+  } catch (e) {
+    console.error(e);
+  }
 
-
-
-
-
-
-const main = () => {
-  const root = document.getElementById("root");
+  const root = document.getElementById('root');
 
   const Header = () => {
+    if (user) {
+      return headerTemplateForUser(user)
+    }
     return headerTemplateForAll;
   };
 
   root.innerHTML = Header();
 };
 
-window.addEventListener("load", main);
-
+window.addEventListener('load', main);
 
 const registerBtn = document.querySelector('.register-submit-btn');
 
@@ -61,7 +70,8 @@ const upload = async e => {
     body: formData,
   };
 
-  const response = await fetch('http://localhost:3000/api/v1/auth/registration', setting);
+  const response = await fetch('http://localhost:3000/api/v1/auth/registration',
+      setting);
   const data = await response.json();
   console.log(data.error);
 
@@ -81,32 +91,33 @@ registerBtn.addEventListener('click', e => {
 
 // Main screen js
 
-const loginBtn = document.getElementById("loginBtn");
-const signinBtn = document.getElementById("signin-btn");
+const loginBtn = document.getElementById('loginBtn');
+const signinBtn = document.getElementById('signin-btn');
 
-const showLoginModal = () => {};
+const showLoginModal = () => {
+};
 
 // Get the modal
-var modal = document.getElementById("myModal");
+var modal = document.getElementById('myModal');
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+var span = document.getElementsByClassName('close')[0];
 
 // When the user clicks the button, open the modal
-loginBtn.addEventListener("click", () => {
-  modal.style.display = "block";
+loginBtn.addEventListener('click', () => {
+  modal.style.display = 'block';
 });
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
-  modal.style.display = "none";
+  modal.style.display = 'none';
 };
 
 // When the user clicks anywhere outside of the modal, close it
 
-window.addEventListener("click", event => {
+window.addEventListener('click', event => {
   console.log(event.target);
-  if (event.target == modal) {
-    modal.style.display = "none";
+  if (event.target === modal) {
+    modal.style.display = 'none';
   }
 });

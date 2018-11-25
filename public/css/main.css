@@ -56,6 +56,8 @@ body {
 
 .btn--inline {
     color: #d8d8d8;
+    text-decoration: none;
+
 }
 .btn--inline:hover {
     color: #fff;
@@ -63,6 +65,7 @@ body {
 }
 
 .btn--green {
+    display: block;
     background-color: #3CB46E;
     color: #fff;
     font-size: 16px;
@@ -70,6 +73,7 @@ body {
     width: 90px;
     border-radius: 5px;
     text-align: center;
+    text-decoration: none;
 }
 
 .btn--green:hover {

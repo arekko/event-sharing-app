@@ -1,21 +1,21 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const db = require('../database');
-const argon2 = require('argon2');
+const bcrypt = require('bcrypt');
 
 // Local strategy login
 const passportLocal = () => {
   passport.use(
       new LocalStrategy(
           {
-            // by default, local strategy uses username and password,
-            usernameField: 'username',
-            passwordField: 'password',
+            // // by default, local strategy uses username and password,
+            // usernameField: 'username',
+            // passwordField: 'password',
             passReqToCallback: true, // allows us to pass back the entire request to the callback
           },
           async (req, username, password, done) => {
 
-            const inputPassport = password;
+            const inputPassword = password;
             // callback with email and password from our form
 
             // find a user whose email is the same as the forms email
@@ -28,8 +28,6 @@ const passportLocal = () => {
                 'SELECT * FROM user WHERE username = ?',
                 [username],
             );
-
-            console.log(usernameRows.length);
 
             if (usernameRows.length > 0) {
               const user = ({
@@ -47,38 +45,38 @@ const passportLocal = () => {
                 confirmed,
               } = usernameRows[0]);
 
-              console.log(inputPassport);
-
               // password verification
               try {
-                if (await argon2.verify(user.password, inputPassport)) {
-                  // password match
+                // compare the passwords
+                const match = await bcrypt.compare(inputPassword,
+                    user.password);
+
+                console.log(match)
+
+                if (match) {
                   console.log('password did match');
                   return done(null, user);
                 } else {
-                  // password did not match
                   console.log('password did not match');
                   req.errors = {
                     error: {
                       path: 'auth',
-                      message: 'Incorrect password'
-                    }
+                      message: 'Incorrect password',
+                    },
                   };
 
                   return done(null, false);
                 }
               } catch (err) {
-                // internal failure
                 console.log(err);
-
               }
 
             } else {
               req.errors = {
                 error: {
                   path: 'auth',
-                  message: 'Username not found'
-                }
+                  message: 'Username not found',
+                },
               };
               return done(null, false);
             }

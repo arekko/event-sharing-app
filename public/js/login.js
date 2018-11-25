@@ -2,7 +2,6 @@
 
 
 
-
 const loginForm = document.getElementById("login-form");
 const loginBtn = document.getElementById("login-submit-btn");
 let username = document.getElementById('login-username');
@@ -18,7 +17,7 @@ const sendLoginForm = async e => {
     password : password
   });
 
-  const response = await fetch("/login", {
+  const response = await fetch("/api/v1/auth/login", {
     method: 'post',
     headers: {
       'Accept': 'application/json',

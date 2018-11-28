@@ -1,37 +1,35 @@
-var multer = require('multer');
-const db = require('../utils/database');
-// const connection = db.createConnection();
-const uuidv4 = require('uuid/v4');
-const passport = require('passport');
-const express = require('express');
+var multer = require("multer");
+const promisePool = require("../utils/database");
+
+const uuidv4 = require("uuid/v4");
+const passport = require("passport");
+const express = require("express");
 
 const router = express.Router();
-const bcrypt = require('bcrypt');
-const sharp = require('../utils/sharp');
-const User = require('../models/userModel');
+const bcrypt = require("bcrypt");
+const sharp = require("../utils/sharp");
+const User = require("../models/userModel");
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, 'public/images/user_profile_img/original');
+    cb(null, "public/images/user_profile_img/original");
   },
   filename: function(req, file, cb) {
     cb(null, `original:${file.originalname}`);
-  },
+  }
 });
 
-const upload = multer({storage: storage});
+const upload = multer({ storage: storage });
 
 // process the login form
-router.post('/login', (req, res, next) => {
-  passport.authenticate('local', (err, user) => {
-
+router.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user) => {
     if (err) {
       return next(err);
     }
 
     if (!user) {
       if (req.errors) {
-        console.log(req.errors);
         return res.send(req.errors);
       }
     }
@@ -41,25 +39,30 @@ router.post('/login', (req, res, next) => {
         return next(err);
       }
       return res.send({
-        error: null,
+        error: null
       });
     });
   })(req, res, next);
 });
 
-// @TODO add some time and picture size
-router.use('/registration', upload.single('avatar'), (req, res, next) => {
-  sharp.resizeImg(req.file.path, 200,
-      `public/images/user_profile_img/thumbnails/thumb:${req.file.originalname}`,
-      next);
+router.use("/registration", upload.single("avatar"), (req, res, next) => {
+  sharp.resizeImg(
+    req.file.path,
+    200,
+    `public/images/user_profile_img/thumbnails/thumb:${req.file.originalname}`,
+    next
+  );
 });
 
-router.post('/registration', async (req, res) => {
+router.post("/registration", async (req, res) => {
+  const originalImageUrl = `http://localhost:3000/images/user_profile_img/original/original:${
+    req.file.originalname
+  }`;
+  const thumbnailImageUrl = `http://localhost:3000/images/user_profile_img/thumbnails/thumb:${
+    req.file.originalname
+  }`;
 
-  const originalImageUrl = `http://localhost:3000/images/user_profile_img/original/original:${req.file.originalname}`;
-  const thumbnailImageUrl = `http://localhost:3000/images/user_profile_img/thumbnails/thumb:${req.file.originalname}`;
-
-  const connection = await db.createConnection();
+  // const connection = await db.createConnection();
   let hashPassword;
   const email = req.body.email;
   const username = req.body.username;
@@ -79,54 +82,57 @@ router.post('/registration', async (req, res) => {
   userData.push(hashPassword);
 
   // @TODO move it to model folder
-  const [usernameRows] = await connection.execute(
-      'SELECT * FROM user WHERE username = ?',
-      [username],
-  );
+  // const [usernameRows] = await promisePool.execute(
+  //   "SELECT * FROM user WHERE username = ?",
+  //   [username]
+  // );
+  const usernameRows = await User.getUserByUsername(username);
+  
 
-  const [emailRows] = await connection.execute(
-      'SELECT * FROM user WHERE email = ?',
-      [email],
+  const [emailRows] = await promisePool.execute(
+    "SELECT * FROM user WHERE email = ?",
+    [email]
   );
 
   if (usernameRows.length > 0) {
     res.send({
-      message: 'error',
-      error: 'Username already exists',
+      message: "error",
+      error: "Username already exists"
     });
   } else if (emailRows.length > 0) {
     res.send({
-      message: 'error',
-      error: 'Email already exists',
+      message: "error",
+      error: "Email already exists"
     });
   } else {
-
     try {
-
-      User.addUser(connection, 'user',
-          ['uId', 'username', 'firstname', 'lastname', 'email', 'password'],
-          userData);
+      User.addUser(
+        promisePool,
+        "user",
+        ["uId", "username", "firstname", "lastname", "email", "password"],
+        userData
+      );
 
       // await connection.execute(
       //     'Insert INTO user (uId, username, firstname, lastname, email, password) VALUES (?,?,?,?,?,?)',
       //     userData,
       // );
       // TODO create a model for this query
-      await connection.execute(
-          'Insert INTO time_user (fk_user_id_time_user) VALUES (?)',
-          [userId],
+      await promisePool.execute(
+        "Insert INTO time_user (fk_user_id_time_user) VALUES (?)",
+        [userId]
       );
-      await connection.execute(
-          'Insert INTO profile_user_photo (original_img_url, thumb_img_url, user_id) VALUES (?, ?, ?)',
-          [originalImageUrl, thumbnailImageUrl, userId],
+      await promisePool.execute(
+        "Insert INTO profile_user_photo (original_img_url, thumb_img_url, user_id) VALUES (?, ?, ?)",
+        [originalImageUrl, thumbnailImageUrl, userId]
       );
     } catch (e) {
       console.log(e);
     }
 
     res.send({
-      message: 'success',
-      error: null,
+      message: "success",
+      error: null
     });
   }
 });

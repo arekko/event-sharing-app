@@ -1,6 +1,6 @@
-var multer = require("multer");
-const promisePool = require("../utils/database");
+const multer = require("multer");
 
+const constant = require("../constants");
 const uuidv4 = require("uuid/v4");
 const passport = require("passport");
 const express = require("express");
@@ -55,44 +55,36 @@ router.use("/registration", upload.single("avatar"), (req, res, next) => {
 });
 
 router.post("/registration", async (req, res) => {
-  const originalImageUrl = `http://localhost:3000/images/user_profile_img/original/original:${
-    req.file.originalname
-  }`;
-  const thumbnailImageUrl = `http://localhost:3000/images/user_profile_img/thumbnails/thumb:${
-    req.file.originalname
-  }`;
+  const photo_url_original = `${
+    constant.HOST_URL
+  }/images/user_profile_img/original/original:${req.file.originalname}`;
+  const photo_url_thumb = `${
+    constant.HOST_URL
+  }/images/user_profile_img/thumbnails/thumb:${req.file.originalname}`;
 
-  // const connection = await db.createConnection();
+  const { username, email, password, firstname, lastname } = req.body;
+
   let hashPassword;
-  const email = req.body.email;
-  const username = req.body.username;
   try {
-    hashPassword = await bcrypt.hash(req.body.password, 10);
+    hashPassword = await bcrypt.hash(password, 10);
   } catch (e) {
     console.error(e);
   }
 
   const userId = uuidv4();
-  const userData = [];
-  userData.push(userId);
-  userData.push(req.body.username);
-  userData.push(req.body.firstname);
-  userData.push(req.body.lastname);
-  userData.push(req.body.email);
-  userData.push(hashPassword);
+  const newUser = {
+    uId: userId,
+    username,
+    email,
+    firstname,
+    lastname,
+    password: hashPassword,
+    photo_url_original,
+    photo_url_thumb
+  };
 
-  // @TODO move it to model folder
-  // const [usernameRows] = await promisePool.execute(
-  //   "SELECT * FROM user WHERE username = ?",
-  //   [username]
-  // );
   const usernameRows = await User.getUserByUsername(username);
-  
-
-  const [emailRows] = await promisePool.execute(
-    "SELECT * FROM user WHERE email = ?",
-    [email]
-  );
+  const emailRows = await User.getUserByEmail(email);
 
   if (usernameRows.length > 0) {
     res.send({
@@ -105,30 +97,7 @@ router.post("/registration", async (req, res) => {
       error: "Email already exists"
     });
   } else {
-    try {
-      User.addUser(
-        promisePool,
-        "user",
-        ["uId", "username", "firstname", "lastname", "email", "password"],
-        userData
-      );
-
-      // await connection.execute(
-      //     'Insert INTO user (uId, username, firstname, lastname, email, password) VALUES (?,?,?,?,?,?)',
-      //     userData,
-      // );
-      // TODO create a model for this query
-      await promisePool.execute(
-        "Insert INTO time_user (fk_user_id_time_user) VALUES (?)",
-        [userId]
-      );
-      await promisePool.execute(
-        "Insert INTO profile_user_photo (original_img_url, thumb_img_url, user_id) VALUES (?, ?, ?)",
-        [originalImageUrl, thumbnailImageUrl, userId]
-      );
-    } catch (e) {
-      console.log(e);
-    }
+    await User.addUser(newUser);
 
     res.send({
       message: "success",

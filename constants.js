@@ -1,5 +1,7 @@
- const redisSessionPrefix = "ssh:";
+const redisSessionPrefix = "ssh:";
+const HOST_URL = "http://localhost:3000";
 
 module.exports = {
-  redisSessionPrefix
+  redisSessionPrefix,
+  HOST_URL
 };

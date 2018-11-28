@@ -8,9 +8,9 @@ const RedisStore = require("connect-redis")(session);
 const redis = require("./redis");
 const passport = require("passport");
 const constants = require("./constants");
-require("dotenv").config();
+const User = require("./models/userModel");
 
-const db = require('./utils/database');
+require("dotenv").config();
 
 const app = express();
 
@@ -51,29 +51,18 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser((user, done) => {
-  console.log('serialization');
+  console.log("serialization");
   console.log(user.uId);
   done(null, user.uId);
 });
 
 // used to deserialize the user
 passport.deserializeUser(async (uId, done) => {
-  const connection = await db.createConnection();
-  const [usernameRows] = await connection.execute(
-      "SELECT * FROM user WHERE uId = ?",
-      [uId]
-  );
-
-  done(null, usernameRows[0])
-  // User.findById(id, function(err, user) {
-  //   done(err, user);
-  // });
+  const user = await User.getUserById(uId)[0];
+  done(null, user);
 });
 
-require('./utils/passport/passport-local')();
-
-
-
+require("./utils/passport/passport-local")();
 
 // routes
 api(app);

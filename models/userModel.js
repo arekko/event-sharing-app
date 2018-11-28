@@ -1,12 +1,22 @@
 const promisePool = require("../utils/database");
 
+const getUserById = async id => {
+  try {
+    const [rows] = await promisePool.query("SELECT * FROM user WHERE uId = ?", [
+      id
+    ]);
+    return rows;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 const getUserByUsername = async username => {
   try {
     const [rows] = await promisePool.query(
       "SELECT * FROM user WHERE username = ?",
       [username]
     );
-    console.log(rows);
     return rows;
   } catch (e) {
     console.error(e);
@@ -15,10 +25,10 @@ const getUserByUsername = async username => {
 
 const getUserByEmail = async email => {
   try {
-    const [rows] = await promisePool.query("SELECT * FROM user WHERE email = ?", [
-      email
-    ]);
-    console.log(rows);
+    const [rows] = await promisePool.query(
+      "SELECT * FROM user WHERE email = ?",
+      [email]
+    );
     return rows;
   } catch (e) {
     console.error(e);
@@ -40,8 +50,19 @@ const addUser = async user => {
   }
 };
 
+const getUsers = async () => {
+  try {
+    const [rows] = await promisePool.query(`Select * from user`);
+    return rows;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 module.exports = {
   addUser,
   getUserByUsername,
-  getUserByEmail
+  getUserByEmail,
+  getUserById,
+  getUsers
 };

@@ -24,4 +24,3 @@ create table user
 
 alter table user
   add primary key (uId);
-

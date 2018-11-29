@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
@@ -10,7 +12,6 @@ const passport = require("passport");
 const constants = require("./constants");
 const User = require("./models/userModel");
 
-require("dotenv").config();
 
 const app = express();
 
@@ -58,8 +59,9 @@ passport.serializeUser((user, done) => {
 
 // used to deserialize the user
 passport.deserializeUser(async (uId, done) => {
-  const user = await User.getUserById(uId)[0];
-  done(null, user);
+  const user = await User.getUserById(uId);
+  console.log(user[0]);
+  done(null, user[0]);
 });
 
 require("./utils/passport/passport-local")();

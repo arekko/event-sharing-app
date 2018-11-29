@@ -43,17 +43,18 @@ const renderView = async () => {
   } catch (e) {
     console.error(new Error('Can not fetch user'))
 
+  }
+
     this.render = `
       ${Header(user)}
-    
+
     `
 
-  }
+
 
   const root = document.getElementById('root');
 
-  root.innerHTML = render;
+  root.innerHTML = this.render;
 };
 
 window.addEventListener('load', renderView);
-

@@ -11,8 +11,17 @@ router.get("/current", isLoggedIn, (req, res) => {
   res.json(req.user);
 });
 
-router.get("/:id", isLoggedIn, async (req, res) => {
-  const users = User.getUsers();
+router.get("/getuser/:id", isLoggedIn, async (req, res) => {
+  const userId = req.params.id
+  console.log(userId);
+
+    const user = await User.getUserById(userId)
+    res.json(user)
+
+})
+
+router.get("/getall", isLoggedIn, async (req, res) => {
+  const users = await User.getUsers();
   res.json(users);
 });
 

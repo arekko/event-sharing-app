@@ -11,7 +11,7 @@ const redis = require("./redis");
 const passport = require("passport");
 const constants = require("./constants");
 const User = require("./models/userModel");
-
+const path = require("path");
 
 const app = express();
 
@@ -19,6 +19,8 @@ const api = require("./api");
 
 const SESSION_SECRET = "somegoodsecret***";
 
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
 // Middleware
 app.use(morgan("dev"));
 app.use(cors());
@@ -27,6 +29,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use("/uploads", express.static(__dirname + "/uploads"));
 app.use("/", express.static(__dirname + "/public"));
+
+
 
 app.use(
   session({

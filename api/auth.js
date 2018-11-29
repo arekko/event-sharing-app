@@ -22,28 +22,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // process the login form
-router.post("/login",  (req, res, next) => {
-  passport.authenticate("local", (err, user) => {
-    if (err) {
-      return next(err);
-    }
-
-    if (!user) {
-      if (req.errors) {
-        return res.send(req.errors);
-      }
-    }
-
-    req.logIn(user, err => {
-      if (err) {
-        return next(err);
-      }
-      return res.send({
-        error: null
-      });
-    });
-  })(req, res, next);
-});
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login"
+  })
+);
 
 router.use("/registration", upload.single("avatar"), (req, res, next) => {
   sharp.resizeImg(

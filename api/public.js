@@ -6,6 +6,12 @@ const express = require("express");
 const router = express.Router();
 const path = require("path");
 
+router.get("/", (req, res) => {
+  res.render("homepage", {
+    user: req.user
+  });
+});
+
 // router.get("/", (req, res) => {
 //   console.log(req.user)
 //   res.sendFile(path.join(__dirname, "..", "public/index.html"));
@@ -13,9 +19,9 @@ const path = require("path");
 
 router.get("/login", (req, res) => {
   if (req.user) {
-    res.redirect("/profile");
+    res.redirect("/");
   } else {
-    res.sendFile(path.join(__dirname, "..", "public/login.html"));
+    res.render("login");
   }
 });
 
@@ -39,7 +45,7 @@ router.get("/logout", async (req, res) => {
  **/
 router.get("/registration", (req, res) => {
   if (req.user) {
-    res.redirect("/profile");
+    res.redirect("/");
   } else {
     res.sendFile(path.join(__dirname, "..", "public/registration.html"));
   }

@@ -13,6 +13,8 @@ const passportLocal = () => {
         passReqToCallback: true
       },
       async (req, username, password, done) => {
+
+        console.log(username, password)
         const inputPassword = password;
 
         const userRow = await User.getUserByUsername(username);

@@ -179,3 +179,15 @@ h3 {
 }
 
 
+.avatar-img {
+    width: 40px;
+    height: 40px;
+}
+.rounded {
+    border-radius: 50%;
+}
+.header-username {
+    color: #fff;
+    align-self: center;
+  padding: 15px;
+}

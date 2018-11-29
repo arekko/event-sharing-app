@@ -15,7 +15,6 @@ window.addEventListener('load', mainLogin);
 
 
 
-
 const loginForm = document.getElementById("login-form");
 const loginBtn = document.getElementById("login-submit-btn");
 let username = document.getElementById('login-username');

@@ -1,6 +1,10 @@
 const promisePool = require("../utils/database");
 
-const getUserById = async id => {
+
+
+class User {
+
+static async getUserById (id) {
   try {
     const [rows] = await promisePool.query("SELECT * FROM user WHERE uId = ?", [
       id
@@ -11,7 +15,7 @@ const getUserById = async id => {
   }
 };
 
-const getUserByUsername = async username => {
+static async getUserByUsername (username) {
   try {
     const [rows] = await promisePool.query(
       "SELECT * FROM user WHERE username = ?",
@@ -23,7 +27,7 @@ const getUserByUsername = async username => {
   }
 };
 
-const getUserByEmail = async email => {
+static async getUserByEmail (email) {
   try {
     const [rows] = await promisePool.query(
       "SELECT * FROM user WHERE email = ?",
@@ -37,7 +41,7 @@ const getUserByEmail = async email => {
 
 // This is cool!
 
-const addUser = async user => {
+static async addUser (user) {
   try {
     await promisePool.execute(
       `Insert INTO user (${Object.keys(user)}) VALUES (${Object.keys(user).map(
@@ -50,7 +54,7 @@ const addUser = async user => {
   }
 };
 
-const getUsers = async () => {
+static async getUsers () {
   try {
     const [rows] = await promisePool.query(`Select * from user`);
     return rows;
@@ -59,7 +63,7 @@ const getUsers = async () => {
   }
 };
 
-const deleteUserById = async userId => {
+static async deleteUserById (userId) {
   try {
     const [results, fields] = await promisePool.execute(
       `DELETE FROM user WHERE uId = ?`,
@@ -73,7 +77,7 @@ const deleteUserById = async userId => {
   }
 };
 
-const updateCurrentUser = async (userId, newUserData) => {
+static async updateCurrentUser (userId, newUserData) {
   const updateData = [];
   for (const key in newUserData) {
     updateData.push(`${key} = "${newUserData[key]}"`);
@@ -87,7 +91,7 @@ const updateCurrentUser = async (userId, newUserData) => {
   }
 };
 
-const updateCurrentDate = async (userId, column) => {
+static async updateCurrentDate (userId, column) {
   const currentDate = new Date()
     .toISOString()
     .slice(0, 19)
@@ -95,16 +99,10 @@ const updateCurrentDate = async (userId, column) => {
     console.log(currentDate);
   const newTime = {};
   newTime[`${column}`] = currentDate;
-  await updateCurrentUser(userId, newTime);
+  await this.updateCurrentUser(userId, newTime);
 };
 
-module.exports = {
-  addUser,
-  getUserByUsername,
-  getUserByEmail,
-  getUserById,
-  getUsers,
-  deleteUserById,
-  updateCurrentUser,
-  updateCurrentDate
-};
+}
+
+
+module.exports = User; 

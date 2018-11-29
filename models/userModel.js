@@ -59,10 +59,40 @@ const getUsers = async () => {
   }
 };
 
+const deleteUserById = async userId => {
+  try {
+    const [results, fields] = await promisePool.execute(
+      `DELETE FROM user WHERE uId = ?`,
+      [userId]
+    );
+
+    console.log(results);
+    console.log(fields);
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+const updateCurrentUser = async (userId, newUserData) => {
+  const updateData = [];
+  for (const key in newUserData) {
+    updateData.push(`${key} = '${newUserData[key]}'`);
+  }
+  try {
+    await promisePool.execute(
+      `UPDATE user SET ${updateData} WHERE uId = "${userId}" `
+    );
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 module.exports = {
   addUser,
   getUserByUsername,
   getUserByEmail,
   getUserById,
-  getUsers
+  getUsers,
+  deleteUserById,
+  updateCurrentUser
 };

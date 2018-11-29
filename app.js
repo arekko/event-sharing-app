@@ -52,15 +52,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser((user, done) => {
-  console.log("serialization");
-  console.log(user.uId);
   done(null, user.uId);
 });
 
 // used to deserialize the user
 passport.deserializeUser(async (uId, done) => {
   const user = await User.getUserById(uId);
-  console.log(user[0]);
   done(null, user[0]);
 });
 

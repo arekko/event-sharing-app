@@ -15,7 +15,6 @@ const passportLocal = () => {
       async (req, username, password, done) => {
         const inputPassword = password;
 
-        console.log(username, password);
         const userRow = await User.getUserByUsername(username);
 
         if (userRow.length > 0) {
@@ -27,10 +26,8 @@ const passportLocal = () => {
             const match = await bcrypt.compare(inputPassword, user.password);
 
             if (match) {
-              console.log("password did match");
               return done(null, user);
             } else {
-              console.log("password did not match");
               req.errors = {
                 error: {
                   path: "auth",

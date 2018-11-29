@@ -22,7 +22,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // process the login form
-router.post("/login", (req, res, next) => {
+router.post("/login",  (req, res, next) => {
   passport.authenticate("local", (err, user) => {
     if (err) {
       return next(err);

@@ -1,5 +1,5 @@
 const isLoggedIn = require("../utils/middleware/isLoggedIn");
-
+const User = require("../models/userModel");
 // const upload =  multer({ dest: 'public/uploads'})
 
 const express = require("express");
@@ -25,7 +25,8 @@ router.get("/login", (req, res) => {
  *
  *
  **/
-router.get("/logout", function(req, res) {
+router.get("/logout", async (req, res) => {
+  await User.updateCurrentDate(req.user.uId, "last_logout_date");
   req.logout();
   res.redirect("/");
 });

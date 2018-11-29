@@ -26,6 +26,8 @@ const passportLocal = () => {
             const match = await bcrypt.compare(inputPassword, user.password);
 
             if (match) {
+              await User.updateCurrentDate(user.uId, 'last_login_date');
+
               return done(null, user);
             } else {
               req.errors = {

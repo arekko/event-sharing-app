@@ -25,9 +25,7 @@ router.get("/users", isLoggedIn, async (req, res) => {
 router.delete("/user/:id", isLoggedIn, async (req, res) => {
   const userId = req.params.id;
   await User.deleteUserById(userId);
-  // res.json({
-  //   errors: null
-  // })
+
   res.redirect("/");
 });
 
@@ -36,6 +34,9 @@ router.patch("/user", isLoggedIn, async (req, res) => {
 
   console.log(req.body);
   await User.updateCurrentUser(userId, req.body);
+  res.json({
+    errors: null
+  });
 });
 // TODO GET all users, getuserbyid, deleteuserbyid, updateuser
 

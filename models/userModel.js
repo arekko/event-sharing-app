@@ -76,7 +76,7 @@ const deleteUserById = async userId => {
 const updateCurrentUser = async (userId, newUserData) => {
   const updateData = [];
   for (const key in newUserData) {
-    updateData.push(`${key} = '${newUserData[key]}'`);
+    updateData.push(`${key} = "${newUserData[key]}"`);
   }
   try {
     await promisePool.execute(
@@ -87,6 +87,17 @@ const updateCurrentUser = async (userId, newUserData) => {
   }
 };
 
+const updateCurrentDate = async (userId, column) => {
+  const currentDate = new Date()
+    .toISOString()
+    .slice(0, 19)
+    .replace("T", " ");
+    console.log(currentDate);
+  const newTime = {};
+  newTime[`${column}`] = currentDate;
+  await updateCurrentUser(userId, newTime);
+};
+
 module.exports = {
   addUser,
   getUserByUsername,
@@ -94,5 +105,6 @@ module.exports = {
   getUserById,
   getUsers,
   deleteUserById,
-  updateCurrentUser
+  updateCurrentUser,
+  updateCurrentDate
 };

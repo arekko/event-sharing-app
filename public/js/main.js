@@ -1,5 +1,8 @@
 
-const headerTemplateForAll = ` <header class="header">
+const HOST = 'http://localhost:3000';
+
+
+const headerTemplateForAll = () => ` <header class="header">
         <div class="header-container">
 
             <span class="header-logo"><i class="fas fa-calendar-alt fa-logo"></i>evoo</span>
@@ -16,7 +19,8 @@ const headerTemplateForUser = (user) => ` <header class="header">
 
             <span class="header-logo"><i class="fas fa-calendar-alt fa-logo"></i>evoo</span>
             <ul class="header-auth-btns">
-                <li>${user.firstname} ${user.lastname}</li>
+               <li><a href="${HOST}/profile/${user.uId}"><img class="rounded avatar-img" src="${user.photo_url_thumb}" /></a></li>
+               <li><a class="header-username" href="${HOST}/profile/${user.uId}">${user.firstname} ${user.lastname}</a></li>
                <li ><a href="/logout" class="header-auth-btn btn--green" id="signin-btn">Logout</a></li>
             </ul>
         </div>
@@ -28,7 +32,7 @@ const Header = (user) => {
   if (user) {
     return headerTemplateForUser(user)
   }
-  return headerTemplateForAll;
+  return headerTemplateForAll();
 };
 
 
@@ -42,7 +46,6 @@ const renderView = async () => {
     user = await fetchUser();
   } catch (e) {
     console.error(new Error('Can not fetch user'))
-
   }
 
     this.render = `

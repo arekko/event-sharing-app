@@ -50,7 +50,7 @@ body {
 }
 
 .header-auth-btn {
-    margin-left: 15px;
+    margin-left: 20px;
     font-size: 16px;
 }
 
@@ -179,3 +179,20 @@ h3 {
 }
 
 
+
+.avatar-img {
+    width: 40px;
+    height: 40px;
+}
+.rounded {
+    border-radius: 50%;
+}
+.header-username {
+    color: #fff;
+    align-self: center;
+  padding: 10px;
+  text-decoration: none;
+  border: 1px solid #fff;
+  border-radius: 5px;
+margin-left: 20px;
+}

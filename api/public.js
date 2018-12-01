@@ -22,7 +22,7 @@ router.get("/login", (req, res) => {
     res.redirect("/");
   } else {
     res.render("login", {
-      message: req.flash('loginMessage')
+      message: req.flash("loginMessage")
     });
   }
 });
@@ -33,7 +33,7 @@ router.get("/login", (req, res) => {
  *
  *
  **/
-router.get("/logout", async (req, res) => {
+router.get("*/logout", async (req, res) => {
   await User.updateCurrentDate(req.user.uId, "last_logout_date");
   req.logout();
   res.redirect("/");
@@ -49,14 +49,35 @@ router.get("/registration", (req, res) => {
   if (req.user) {
     res.redirect("/");
   } else {
-    res.render('register', {
-      message: req.flash('signupMessage')
-    })
+    res.render("register", {
+      message: req.flash("signupMessage")
+    });
   }
 });
 
-router.get("/profile", isLoggedIn, (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "public/profile.html"));
+router.get("/profile/:id", isLoggedIn, async (req, res) => {
+  const user = req.user;
+  const currentUserId = req.user.uId;
+  const profileId = req.params.id;
+  const userProfile = await User.getUserById(req.params.id);
+  if (!userProfile) {
+    res.status(404);
+  }
+  console.log(userProfile);
+
+  if (currentUserId === profileId) {
+    res.render("profile", {
+      user: req.user,
+      userpr: userProfile[0],
+      canUpdate: true
+    });
+  } else {
+    res.render("profile", {
+      user: req.user,
+      userpr: userProfile[0],
+      canUpdate: false
+    });
+  }
 });
 
 module.exports = router;

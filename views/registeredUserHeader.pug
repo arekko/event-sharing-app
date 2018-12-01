@@ -2,10 +2,15 @@ header(class='header')
   div(class='header-container')
     span(class='header-logo') evoo
     ul(class='header-auth-btns')
+
       li
-        img(class='avatar-img rounded' src=user.photo_url_thumb, alt=user.username)
+        a(href="/create-event" class="btn-outline-light btn") Create new event
+      li
+        a(href='/profile/' + user.uId)
+          img(class='avatar-img rounded' src=user.photo_url_thumb, alt=user.username)
       li 
-        span(class='header-username') #{user.firstname} #{user.lastname}
+        a
+          span(class='header-username') #{user.firstname} #{user.lastname}
       li
         a(href='./logout' class='header-auth-btn btn--green') Logout
 

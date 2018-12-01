@@ -1,0 +1,12 @@
+
+
+
+
+
+extend base.pug
+block content
+    include header
+    
+    img(src=userpr.photo_url_original, alt=userpr.username)
+    h1 Hello #{userpr.firstname} #{userpr.lastname}
+    p #{canUpdate}

@@ -3,13 +3,16 @@ extend base.pug
 block content
   div(class='login-container')
   h3 Login
-  form(
-    class="login-form"
-      action="/api/v1/auth/login"
-      id="login-form"
-      method="POST"
-      )
+    p Welcome back
+    if message.length > 0
+      p #{message}
+    form(
+      class="login-form"
+        action="/api/v1/auth/login"
+        id="login-form"
+        method="POST"
+        )
 
-     input( type="text" name="username" placeholder="Username" id="login-username" )
-     input( type="text" name="password" placeholder="Password" id="login-password" )
-     input( type="submit" name="submit-btn"  id="login-submit-btn" )
+      input( type="text" name="username" placeholder="Username" id="login-username" )
+      input( type="text" name="password" placeholder="Password" id="login-password" )
+      input( type="submit" name="submit-btn"  id="login-submit-btn" )

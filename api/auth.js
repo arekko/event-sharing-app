@@ -26,11 +26,20 @@ router.post(
   "/login",
   passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/login"
+    failureRedirect: "/login",
+    failureFlash: true
   })
 );
+// router.post(
+//   "/login",
+//   passport.authenticate("local", {
+//     successRedirect: "/",
+//     failureRedirect: "/login"
+//   })
+// );
 
 router.use("/registration", upload.single("avatar"), (req, res, next) => {
+console.log(req.file);
   sharp.resizeImg(
     req.file.path,
     200,
@@ -72,22 +81,15 @@ router.post("/registration", async (req, res) => {
   const emailRows = await User.getUserByEmail(email);
 
   if (usernameRows.length > 0) {
-    res.send({
-      message: "error",
-      error: "Username already exists"
-    });
+    req.flash('signupMessage', 'This username already exists.')
+    res.redirect('/registration')
   } else if (emailRows.length > 0) {
-    res.send({
-      message: "error",
-      error: "Email already exists"
-    });
+    req.flash('signupMessage', 'This email already exists.')
+    res.redirect('/registration')
   } else {
     await User.addUser(newUser);
 
-    res.send({
-      message: "success",
-      error: null
-    });
+    res.redirect('/login')
   }
 });
 

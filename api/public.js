@@ -21,7 +21,9 @@ router.get("/login", (req, res) => {
   if (req.user) {
     res.redirect("/");
   } else {
-    res.render("login");
+    res.render("login", {
+      message: req.flash('loginMessage')
+    });
   }
 });
 
@@ -47,7 +49,9 @@ router.get("/registration", (req, res) => {
   if (req.user) {
     res.redirect("/");
   } else {
-    res.sendFile(path.join(__dirname, "..", "public/registration.html"));
+    res.render('register', {
+      message: req.flash('signupMessage')
+    })
   }
 });
 

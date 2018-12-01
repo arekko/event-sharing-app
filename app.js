@@ -12,6 +12,7 @@ const passport = require("passport");
 const constants = require("./constants");
 const User = require("./models/userModel");
 const path = require("path");
+const flash = require("connect-flash");
 
 const app = express();
 
@@ -54,6 +55,7 @@ app.use(
 // session.
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash()); // use connect-flash for flash messages stored in session
 
 passport.serializeUser((user, done) => {
   done(null, user.uId);

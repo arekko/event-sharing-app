@@ -13,8 +13,7 @@ const passportLocal = () => {
         passReqToCallback: true
       },
       async (req, username, password, done) => {
-
-        console.log(username, password)
+        console.log(username, password);
         const inputPassword = password;
 
         const userRow = await User.getUserByUsername(username);
@@ -28,30 +27,16 @@ const passportLocal = () => {
             const match = await bcrypt.compare(inputPassword, user.password);
 
             if (match) {
-              await User.updateCurrentDate(user.uId, 'last_login_date');
-
+              await User.updateCurrentDate(user.uId, "last_login_date");
               return done(null, user);
             } else {
-              req.errors = {
-                error: {
-                  path: "auth",
-                  message: "Incorrect password"
-                }
-              };
-
-              return done(null, false);
+              return done(null, false, req.flash('loginMessage', "Incorrect password."));
             }
           } catch (err) {
             console.log(err);
           }
         } else {
-          req.errors = {
-            error: {
-              path: "auth",
-              message: "Username not found"
-            }
-          };
-          return done(null, false);
+          return done(null, false, req.flash('loginMessage', 'Incorrect username.'));
         }
       }
     )

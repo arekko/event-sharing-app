@@ -6,15 +6,16 @@ block content
     div.profile-edit
         .form-container
             h3 Edit Profile
-            form(action="#")
-                input( type="text" name="firstname" placeholder="Firstname" id="login-username" required )
-                input( type="text" name="lastname" placeholder="Lastname" id="login-username" required)
-                input( type="text" name="age" placeholder="Age" id="login-username" required)
-                input( type="text" name="lastname" placeholder="Lastname" id="login-username" required)
-                input( type="text" name="country" placeholder="Country" id="login-username" required)
-                input( type="text" name="city" placeholder="City" id="login-username" required)
-                input( type="text" name="bio" placeholder="Lastname" id="login-username" required)
+            if message.length > 0 
+                p.alert-message #{message}
+            form(action="/edit-profile" method="post")
+                input( type="text" name="firstname" placeholder="Firstname" id="login-username" )
+                input( type="text" name="lastname" placeholder="Lastname" id="login-username")
+                input( type="text" name="age" placeholder="Age" id="login-username")
+                input( type="text" name="username" placeholder="Username" id="login-username")
+                input( type="text" name="country" placeholder="Country" id="login-username")
+                input( type="text" name="city" placeholder="City" id="login-username")
                 label(for="story") Tell us your story:
-                textarea(id="story" name="story" rows="5" cols="33")
-                input( type="submit" name="submit-btn" class="btn primary-color" value="Join" )  
+                textarea(id="story" name="bio" rows="5" cols="33")
+                input( type="submit" class="btn primary-color" value="Join" )  
 

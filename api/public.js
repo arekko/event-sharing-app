@@ -82,9 +82,35 @@ router.get("/profile/:id", isLoggedIn, async (req, res) => {
 
 router.get("/edit-profile", isLoggedIn, (req, res) => {
   res.render("edit-profile", {
-    user: req.user
+    user: req.user,
+    message: req.flash('username-error')
   });
 });
+
+router.post("/edit-profile", isLoggedIn, async (req, res) => {
+  //  console.log(req.body)
+  const changeData = req.body;
+
+  if (changeData.username) {
+    const user = await User.getUserByUsername(changeData.username);
+    if (user.length > 0) {
+      req.flash("username-error", "This username already exists");
+      res.redirect("/edit-profile");
+    }
+  }
+
+  let updateUser = {};
+
+  for (let i in changeData) {
+    console.log(i);
+    if (changeData[i] !== "") {
+      updateUser[i] = changeData[i];
+    }
+  }
+  await User.updateCurrentUser(req.user.uId, updateUser);
+  res.redirect(`/profile/${req.user.uId}`);
+});
+
 router.get("/change-password", isLoggedIn, (req, res) => {
   res.render("change-password", {
     user: req.user,

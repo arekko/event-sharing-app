@@ -1,7 +1,7 @@
 header(class='header')
   div(class='header-container')
     .logo-container
-      i(class="fas fa-calendar fa-logo")
+      i(class="far fa-calendar fa-logo")
       .logo-text-container
         span(class='header-logo') Evoo
         span.header-sublogo Fun events
@@ -12,10 +12,7 @@ header(class='header')
       li
         a(href="/create-event" class="") Create new event
       li
-        a(href='/profile/' + user.uId)
-          img(class='avatar-img rounded' src=user.photo_url_thumb, alt=user.username)
-      li 
-        a #{user.firstname} #{user.lastname}
+        a(href='/profile/' + user.uId) Profile
       li
         a(href='./logout' class='header-auth-btn btn--green') Logout
 

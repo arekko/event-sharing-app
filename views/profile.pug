@@ -16,6 +16,7 @@ block content
                     span Change photo
             if canUpdate
                 a(href="/edit-profile" class="btn edit-profile-btn") Edit
+                a(href="/change-password" class="btn edit-profile-btn") Change password 
         div(class="bio-section section")
             h2.profile-username #{userpr.firstname} #{userpr.lastname}
         
@@ -35,5 +36,8 @@ block content
             if user.bio
                 h4.h4-title Bio
                 p.profile-bio #{user.bio}
+        
+        
+                
         //- h1 H#{userpr.firstname} #{userpr.lastname}ello #{userpr.firstname} #{userpr.lastname}
         //- p #{canUpdate}

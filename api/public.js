@@ -1,7 +1,7 @@
 const isLoggedIn = require("../utils/middleware/isLoggedIn");
 const User = require("../models/userModel");
 // const upload =  multer({ dest: 'public/uploads'})
-
+const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
 const path = require("path");
@@ -80,11 +80,39 @@ router.get("/profile/:id", isLoggedIn, async (req, res) => {
   }
 });
 
-router.get('/edit-profile', isLoggedIn, (req, res) => {
+router.get("/edit-profile", isLoggedIn, (req, res) => {
+  res.render("edit-profile", {
+    user: req.user
+  });
+});
+router.get("/change-password", isLoggedIn, (req, res) => {
+  res.render("change-password", {
+    user: req.user,
+    message: req.flash("changepass")
+  });
+});
 
-
-  res.render("edit-profile")
-
-})
+router.post("/change-password", isLoggedIn, async (req, res) => {
+  const userId = req.user.uId;
+  console.log(req.body);
+  let hashPassword;
+  try {
+    hashPassword = await bcrypt.hash(req.body.newpass, 10);
+  } catch (e) {
+    console.error(e);
+  }
+  const user = await User.getUserById(userId);
+  console.log(user[0].password);
+  const match = await bcrypt.compare(req.body.currentpass, user[0].password);
+  if (match) {
+    await User.updateCurrentUser(userId, {
+      password: hashPassword
+    });
+    res.redirect(`/profile/${userId}`);
+  } else {
+    req.flash("changepass", "Incorrect old password");
+    res.redirect("/change-password");
+  }
+});
 
 module.exports = router;

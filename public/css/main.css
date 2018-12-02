@@ -25,6 +25,20 @@ body {
 /*Header*/
 .logo-container {
   display: flex;
+
+
+background: -moz-linear-gradient(9deg, rgba(171,0,148,1) 0%, rgba(0,51,51,1) 60%, rgba(0,51,51,1) 90%); /* ff3.6+ */
+background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(171,0,148,1)), color-stop(60%, rgba(0,51,51,1)), color-stop(90%, rgba(0,51,51,1))); /* safari4+,chrome */
+background: -webkit-linear-gradient(9deg, rgba(171,0,148,1) 0%, rgba(0,51,51,1) 60%, rgba(0,51,51,1) 90%); /* safari5.1+,chrome10+ */
+background: -o-linear-gradient(9deg, rgba(171,0,148,1) 0%, rgba(0,51,51,1) 60%, rgba(0,51,51,1) 90%); /* opera 11.10+ */
+background: -ms-linear-gradient(9deg, rgba(171,0,148,1) 0%, rgba(0,51,51,1) 60%, rgba(0,51,51,1) 90%); /* ie10+ */
+background: linear-gradient(81deg, rgba(171,0,148,1) 0%, rgba(0,51,51,1) 60%, rgba(0,51,51,1) 90%); /* w3c */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#AB0094', endColorstr='#003333',GradientType=1 ); /* ie6-9 */
+
+
+  font-size: 35px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .logo-text-container {
   display: flex;
@@ -32,6 +46,8 @@ body {
 }
 
 .header-logo {
+
+  
   font-size: 18px;
   font-weight: bold;
   color: #111;
@@ -41,8 +57,8 @@ body {
   font-weight: 500;
 }
 .fa-logo {
-  font-size: 35px;
-  color: #111;
+
+
   margin-right: 10px;
 }
 
@@ -119,7 +135,7 @@ p {
   width: 40rem;
   /* margin:0  auto; */
   text-align: center;
-  margin-top: 8rem;
+  margin-top: 5rem;
 }
 .form-container input:not(:last-child) {
   display: block;
@@ -198,37 +214,40 @@ p {
   margin: 0 auto;
 }
 .profile-content {
-    display: flex;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .section {
-   background-color: #fff;
-    padding: 20px;
-    margin: 30px;
+  background-color: #fff;
+  padding: 20px;
+  margin: 10px;
 }
 
 .avatar-section {
-
-  max-height: 500px;
+  /* max-height: 500px; */
   max-width: 300px;
 }
 .avatar-section img {
   width: 100%;
   height: auto;
-  
+  z-index: -1;
 }
 .profile-img-container {
-  position: relative;
   z-index: 1;
+  position: relative;
   overflow: hidden;
 }
 
 .profile-img-container:hover .change-photo-container {
-  visibility: visible;
+  margin-top: -35px;
+}
+.change-photo-container:hover {
+  cursor: pointer;
 }
 
 .change-photo-container {
-  visibility: hidden;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -237,18 +256,15 @@ p {
   height: 35px;
   background: rgba(0, 0, 0, 0.5);
   color: #fff;
-  position: absolute;
-  left: 0;
-  bottom: 0;
+
   z-index: 99;
-  -webkit-transition: all .2s linear; /* Safari */
-   transition: all .2s linear;
+  -webkit-transition: all 0.3s linear; /* Safari */
+  transition: all 0.3s linear;
 }
 
 .change-photo-container i {
   margin-right: 10px;
 }
-
 
 .edit-profile-btn {
   margin-top: 14px;
@@ -259,46 +275,57 @@ p {
 }
 
 .edit-profile-btn:hover {
-    background-color: #dfe6ed;
-    cursor: pointer;
+  background-color: #dfe6ed;
+  cursor: pointer;
 }
-
 
 .bio-section {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 500px;
-
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
 }
 .profile-username {
-    align-self: center;
-    color:  #55677d;
-    font-size: 30px;
+  align-self: center;
+  color: #55677d;
+  font-size: 30px;
 }
 .location-fa {
-    color: #3cb46e;
-    margin-right: 10px;
+  color: #3cb46e;
+  margin-right: 10px;
 }
 .profile-location span {
-    margin-right: 10px;
-    font-weight: bold;
-    font-size: 16px;
-    color: #111;
+  margin-right: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #111;
 }
 .h4-title {
-    font-size: 14px;
+  font-size: 14px;
 }
 .profile-bio {
-    margin-top: 0;
-    font-size: 18px;
-    padding: 0 10%;
-    color:  #111;
+  margin-top: 0;
+  font-size: 18px;
+  padding: 0 10%;
+  color: #111;
 }
 .social-media a i {
-    color: #55677d;
-    font-size: 25px;
-    margin-right: 10px;
-    margin-top: 20px;;
+  color: #55677d;
+  font-size: 25px;
+  margin-right: 10px;
+  margin-top: 20px;
+}
+
+/* edit profile */
+
+.profile-edit {
+  display: flex;
+  justify-content: center;
+}
+
+/* change password */
+.change-password-container {
+  display: flex;
+  justify-content: center;
 }

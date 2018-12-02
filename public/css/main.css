@@ -197,10 +197,18 @@ p {
   width: 80%;
   margin: 0 auto;
 }
+.profile-content {
+    display: flex;
+}
+
+.section {
+   background-color: #fff;
+    padding: 20px;
+    margin: 30px;
+}
 
 .avatar-section {
-  background-color: #fff;
-  padding: 20px;
+
   max-height: 500px;
   max-width: 300px;
 }
@@ -219,4 +227,44 @@ p {
 .edit-profile-btn:hover {
     background-color: #dfe6ed;
     cursor: pointer;
+}
+
+
+.bio-section {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+
+}
+.profile-username {
+    align-self: center;
+    color:  #55677d;
+    font-size: 30px;
+}
+.location-fa {
+    color: #3cb46e;
+    margin-right: 10px;
+}
+.profile-location span {
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #111;
+}
+.h4-title {
+    font-size: 14px;
+}
+.profile-bio {
+    margin-top: 0;
+    font-size: 18px;
+    padding: 0 10%;
+    color:  #55677d;
+}
+.social-media a i {
+    color: #55677d;
+    font-size: 25px;
+    margin-right: 10px;
+    margin-top: 20px;;
 }

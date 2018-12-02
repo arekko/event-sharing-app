@@ -8,11 +8,28 @@ block content
     include header
     .profile-container
       .profile-content
-        .avatar-section
+        div(class="avatar-section section")
             img(src=userpr.photo_url_original, alt=userpr.username)
             if canUpdate
                 a(href="/edit-profile" class="btn edit-profile-btn") Edit
-        .bio-section
+        div(class="bio-section section")
             h2.profile-username #{userpr.firstname} #{userpr.lastname}
+        
+            if user.country 
+                .profile-location
+                    i(class="fas fa-map-marker-alt location-fa")
+                    span.profile.country #{userpr.country},
+                    span.profile-city #{userpr.city}
+            .social-media
+                a(href="#")
+                    i(class="far fa-envelope")
+                a(href="#")
+                    i(class="fab fa-facebook-square")
+                a(href="#")
+                    i(class="fab fa-instagram")
+
+            if user.bio
+                h4.h4-title Bio
+                p.profile-bio #{user.bio}
         //- h1 H#{userpr.firstname} #{userpr.lastname}ello #{userpr.firstname} #{userpr.lastname}
-        p #{canUpdate}
+        //- p #{canUpdate}

@@ -6,7 +6,13 @@
 extend base.pug
 block content
     include header
-    
-    img(src=userpr.photo_url_original, alt=userpr.username)
-    h1 Hello #{userpr.firstname} #{userpr.lastname}
-    p #{canUpdate}
+    .profile-container
+      .profile-content
+        .avatar-section
+            img(src=userpr.photo_url_original, alt=userpr.username)
+            if canUpdate
+                a(href="/edit-profile" class="btn edit-profile-btn") Edit
+        .bio-section
+            h2.profile-username #{userpr.firstname} #{userpr.lastname}
+        //- h1 H#{userpr.firstname} #{userpr.lastname}ello #{userpr.firstname} #{userpr.lastname}
+        p #{canUpdate}

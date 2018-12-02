@@ -5,8 +5,9 @@ block content
     div(class='form-container')
       h3.h3-title Login
       p.login-text Welcome back
-      if message.length > 0
-        p #{message}
+      if message.length > 0 
+      p.alert-message #{message}
+      
 
       a(href="/auth/google" class="login-google-btn btn primary-color") 
         i(class="fab fa-google")

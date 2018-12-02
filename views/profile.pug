@@ -26,12 +26,14 @@ block content
                     span.profile.country #{userpr.country},
                     span.profile-city #{userpr.city}
             .social-media
-                a(href="#")
+                a(href=user.email)
                     i(class="far fa-envelope")
-                a(href="#")
-                    i(class="fab fa-facebook-square")
-                a(href="#")
-                    i(class="fab fa-instagram")
+                if user.facebook_link
+                    a(href=user.facebook_link)
+                        i(class="fab fa-facebook-square")
+                if user.instagram_link
+                    a(href=user.instagram_link)
+                        i(class="fab fa-instagram")
 
             if user.bio
                 h4.h4-title Bio

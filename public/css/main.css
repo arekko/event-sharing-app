@@ -215,9 +215,39 @@ p {
 .avatar-section img {
   width: 100%;
   height: auto;
+  
+}
+.profile-img-container {
   position: relative;
+  z-index: 1;
+  overflow: hidden;
 }
 
+.profile-img-container:hover .change-photo-container {
+  visibility: visible;
+}
+
+.change-photo-container {
+  visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  width: 100%;
+  height: 35px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 99;
+  -webkit-transition: all .2s linear; /* Safari */
+   transition: all .2s linear;
+}
+
+.change-photo-container i {
+  margin-right: 10px;
+}
 
 
 .edit-profile-btn {

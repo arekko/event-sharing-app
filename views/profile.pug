@@ -9,7 +9,11 @@ block content
     .profile-container
       .profile-content
         div(class="avatar-section section")
-            img(src=userpr.photo_url_original, alt=userpr.username)
+            .profile-img-container
+                img(src=userpr.photo_url_original, alt=userpr.username)
+                .change-photo-container
+                    i(class="fas fa-file-upload")
+                    span Change photo
             if canUpdate
                 a(href="/edit-profile" class="btn edit-profile-btn") Edit
         div(class="bio-section section")

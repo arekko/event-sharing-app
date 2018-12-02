@@ -215,7 +215,11 @@ p {
 .avatar-section img {
   width: 100%;
   height: auto;
+  position: relative;
 }
+
+
+
 .edit-profile-btn {
   margin-top: 14px;
   display: block;
@@ -260,7 +264,7 @@ p {
     margin-top: 0;
     font-size: 18px;
     padding: 0 10%;
-    color:  #55677d;
+    color:  #111;
 }
 .social-media a i {
     color: #55677d;

@@ -80,4 +80,11 @@ router.get("/profile/:id", isLoggedIn, async (req, res) => {
   }
 });
 
+router.get('/edit-profile', isLoggedIn, (req, res) => {
+
+
+  res.render("edit-profile")
+
+})
+
 module.exports = router;

@@ -30,8 +30,12 @@
 -->
 
 <! Database folder --
-//user data to be stored
+//user data to be stored inc login time history
 //events data to be stored
+
+--Event--
+//should have a definite start and end time..
+//could have a time limit for comment review after the event has ended
 
 -->
 

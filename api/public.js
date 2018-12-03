@@ -5,10 +5,18 @@ const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
 const path = require("path");
+const uuid = require("uuid/v4");
+const Event = require("../models/eventModel");
 
-router.get("/", (req, res) => {
+
+router.get("/", async (req, res) => {
+
+  const events = await Event.getEvents();
+  console.log(events)
+
   res.render("homepage", {
-    user: req.user
+    user: req.user,
+    events: events
   });
 });
 
@@ -83,7 +91,7 @@ router.get("/profile/:id", isLoggedIn, async (req, res) => {
 router.get("/edit-profile", isLoggedIn, (req, res) => {
   res.render("edit-profile", {
     user: req.user,
-    message: req.flash('username-error')
+    message: req.flash("username-error")
   });
 });
 
@@ -139,6 +147,30 @@ router.post("/change-password", isLoggedIn, async (req, res) => {
     req.flash("changepass", "Incorrect old password");
     res.redirect("/change-password");
   }
+});
+
+// Add new event
+router.get("/create-event", isLoggedIn, (req, res) => {
+  res.render("create-event", {
+    user: req.user,
+    message: req.flash("create-event")
+  });
+});
+
+
+router.use('/create-event' )
+
+
+router.post("/create-event", isLoggedIn, async (req, res) => {
+  const userId = req.user.uId;
+  const eventData = req.body;
+  eventData.eId = uuid();
+  eventData.creater_id = userId;
+
+  //  console.log(req.body)
+
+  await Event.addEvent(eventData);
+   res.redirect('/')
 });
 
 module.exports = router;

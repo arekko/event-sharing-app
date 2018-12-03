@@ -1,3 +1,18 @@
+const multer = require("multer");
+const sharp = require("../utils/sharp");
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, "public/images/event_cover_img/original");
+  },
+  filename: function(req, file, cb) {
+    cb(null, `original:${file.originalname}`);
+  }
+});
+
+const upload = multer({ storage: storage });
+
+const constant = require("../constants");
+
 const isLoggedIn = require("../utils/middleware/isLoggedIn");
 const User = require("../models/userModel");
 // const upload =  multer({ dest: 'public/uploads'})
@@ -8,15 +23,13 @@ const path = require("path");
 const uuid = require("uuid/v4");
 const Event = require("../models/eventModel");
 
-
 router.get("/", async (req, res) => {
-
-  const events = await Event.getEvents();
-  console.log(events)
+  const cardInfo = await Event.getEventsForCards();
+  console.log(cardInfo);
 
   res.render("homepage", {
     user: req.user,
-    events: events
+    cardInfo
   });
 });
 
@@ -157,20 +170,36 @@ router.get("/create-event", isLoggedIn, (req, res) => {
   });
 });
 
+router.post("/create-event", upload.single("event"), (req, res, next) => {
+  console.log(req.file);
+  if (req.file) {
+    sharp.resizeImg(
+      req.file.path,
+      400,
+      `public/images/event_cover_img/card/card:${req.file.originalname}`,
+      next
+    );
+  } else {
+    next();
+  }
+});
 
-router.use('/create-event' )
-
-
-router.post("/create-event", isLoggedIn, async (req, res) => {
+router.use("/create-event", isLoggedIn, async (req, res) => {
   const userId = req.user.uId;
   const eventData = req.body;
   eventData.eId = uuid();
   eventData.creater_id = userId;
+  eventData.photo_original_url = `${
+    constant.HOST_URL
+  }/images/event_cover_img/original/original:${req.file.originalname}`;
+  eventData.photo_card_url = `${
+    constant.HOST_URL
+  }/images/event_cover_img/card/card:${req.file.originalname}`;
 
   //  console.log(req.body)
 
   await Event.addEvent(eventData);
-   res.redirect('/')
+  res.redirect("/");
 });
 
 module.exports = router;

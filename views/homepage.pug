@@ -2,15 +2,7 @@
 extend base.pug
 block content
     include header
-        //- if events.length > 0
-        //- p #{events.title}
-        each val in events
-            p #{val.title}
-            p #{val.description}
-            p #{val.address}
 
-
-        //- if user != null
-        //-     p Hi there, #{user.username}!
-        //- else
-        //-     p Hi there, unknown person!
+        .cards-holder
+            each card in cardInfo
+                include event-card

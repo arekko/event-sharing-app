@@ -24,3 +24,20 @@ create table user
 
 alter table user
   add primary key (uId);
+
+create table appdb.event
+(
+  eId          varchar(128)                          not null,
+  title        text                                  null,
+  description  text                                  null,
+  address      text                                  null,
+  created_date timestamp default current_timestamp() not null,
+  event_date   text                                  not null,
+  creater_id   text                                  null,
+  location     text                                  null,
+  constraint event_eId_uindex
+  unique (eId)
+);
+
+alter table appdb.event
+  add primary key (eId);

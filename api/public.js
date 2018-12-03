@@ -171,7 +171,8 @@ router.get("/create-event", isLoggedIn, (req, res) => {
 });
 
 router.post("/create-event", upload.single("event"), (req, res, next) => {
-  console.log(req.file);
+  console.log(req.body);
+  console.log(req);
   if (req.file) {
     sharp.resizeImg(
       req.file.path,
@@ -196,9 +197,10 @@ router.use("/create-event", isLoggedIn, async (req, res) => {
     constant.HOST_URL
   }/images/event_cover_img/card/card:${req.file.originalname}`;
 
-  //  console.log(req.body)
+   
 
-  await Event.addEvent(eventData);
+
+  // await Event.addEvent(eventData);
   res.redirect("/");
 });
 

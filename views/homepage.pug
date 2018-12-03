@@ -3,6 +3,10 @@ extend base.pug
 block content
     include header
 
-        .cards-holder
-            each card in cardInfo
-                include event-card
+    .search-container
+        img(src="/images/public_img/cover.jpeg", alt="header")
+
+
+    .cards-holder
+        each card in cardInfo
+            include event-card

@@ -76,4 +76,6 @@ typings/
 .fusebox/
 
 .idea/
-public/images
+public/images/user_profile_img/*
+
+public/images/event_cover_img/*

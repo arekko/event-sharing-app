@@ -536,3 +536,34 @@ p {
 .add-comment-button {
   /* color: #999; */
 }
+
+/* Comments */
+.list-container {
+  padding: 0;
+}
+.comment-item {
+  display: flex;
+  list-style-type:none;
+  padding: 10px;
+  
+}
+.comment-img {
+  width: 45px;
+  height: 45px;
+}
+.comm-body {
+padding-left: 8px;
+}
+.comm-username {
+  font-size: 14px;
+  font-weight: bold;
+  color: #707070;
+}
+.comm-date {
+  font-size: 10px;
+  color: #707070;
+}
+.comm-text {
+  font-size: 13px;
+  color: #707070;
+}

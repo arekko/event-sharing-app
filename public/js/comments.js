@@ -26,7 +26,7 @@ const renderComments = async eventId => {
   let html = "";
   comments.message.forEach(comm => {
     const commEl = commentTemplate(comm);
-    html = commEl + html + " ";
+    html = " " + commEl + html;
     // listContainer.innerHTML = commEl;
   });
   listContainer.innerHTML = html;

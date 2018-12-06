@@ -19,6 +19,7 @@ class Comment {
             comment.event_id = event.eId 
           AND 
             comment.event_id = ?
+          ORDER BY date ASC
           `, [eventId]);
       return rows;
     } catch (e) {

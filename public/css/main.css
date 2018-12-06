@@ -512,7 +512,7 @@ p {
   border-radius: 30px;
   border: none;
   background-color: #ddd;
-  padding: 10px 10px 10px 20px;
+  padding: 10px 45px 10px 20px;
   outline: none;
 }
 .comment-btn {
@@ -552,7 +552,7 @@ p {
   height: 45px;
 }
 .comm-body {
-padding-left: 8px;
+padding-left: 12px;
 }
 .comm-username {
   font-size: 14px;

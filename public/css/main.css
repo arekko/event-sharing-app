@@ -397,14 +397,36 @@ p {
   text-decoration: none;
 }
 
-.card-image-container {
+.card-img-container {
   width: 100%;
   max-height: 200px;
+  position: relative;
 }
 .card-image  {
   width: 100%;
   height: auto;
   max-height: 200px;
+}
+.card-date-icon-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  text-align: center;
+  top: 10px;
+  left: 10px;
+  background-color: #fff;
+  width: 40px;
+  padding: 8px;
+  border-radius: 10px;
+}
+.short-date {
+  font-size: 20px;
+  font-weight: bold;
+  color: rgba(171, 0, 148, 1)
+}
+.short-month {
+  font-size: 12px;
+  color: #999;
 }
 .card-body-container {
   padding: 15px 15px 0 15px;
@@ -414,6 +436,10 @@ p {
   font-size: 20px;
   font-weight: bold;
   margin: 5px 0;
+}
+.card-date {
+  color: #999;
+  font-size: 14px;
 }
 
 .card-user-info-container {
@@ -434,4 +460,20 @@ p {
 .card-username {
   color: #343a40;
   font-size: 16px;
+}
+
+/* Event page */
+
+
+.event-content-container {
+  width: 80%;
+  display: flex;
+  margin: 0 auto;
+}
+.event-info-container {
+  max-width: 500px;
+}
+.event-title {
+  font-size: 20px;
+  font-weight: bold;
 }

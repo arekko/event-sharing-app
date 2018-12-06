@@ -1,0 +1,36 @@
+
+extend base.pug
+block content
+  include header
+  .event-content-container
+    .event-info-container.section
+      .event-image-container
+        img(src=event.photo_original_url, alt=event.title)
+      h3.event-title #{event.title}
+      -
+        const date = new Date(event.event_date).toLocaleDateString('en-GB', {  
+          weekday: 'long',
+          // weekday: 'short',
+          day: 'numeric',
+          month : 'short',
+          year : 'numeric',
+
+          });
+
+        const time = new Date(event.event_date).toLocaleTimeString('fi-FI', { hour: '2-digit', minute: '2-digit'})
+    
+      .event-date 
+        i.far.fa-calendar-alt.event-date-icon
+        span #{date}
+      .event-time 
+        i.far.fa-clock.event-time-icon
+        span #{time}
+      .event-location 
+        i.fas.fa-map-marker-alt.event-location-icon
+        span #{event.location}, #{event.address}
+      h4.event-details Details  
+      p.event-description #{event.description}
+
+    .event-comments-container
+    .event-recomendation-container
+  

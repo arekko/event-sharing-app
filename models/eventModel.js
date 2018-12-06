@@ -16,7 +16,7 @@ class Event {
   static async getEventById(id) {
     try {
       const [rows] = await promisePool.query(
-        `Select * from event WHERE eId = ${id}`
+        `Select * from event WHERE eId = ?`, [id]
       );
       return rows;
     } catch (e) {
@@ -42,7 +42,7 @@ class Event {
         `Select 
             event.eId,
             event.title, 
-            event.address, 
+            event.event_date,
             event.photo_card_url,
             user.uId,
             user.firstname, 

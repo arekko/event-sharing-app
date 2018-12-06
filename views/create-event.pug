@@ -9,11 +9,14 @@ block content
                 p.alert-message #{message}
             form(action="/create-event" method="post" enctype="multipart/form-data")
                 input( type="text" name="title" placeholder="Event's title" id="login-username" )
-                input( type="text" name="address" placeholder="Address" id="login-username")
-                input( type="text" name="event_date" placeholder="Event_date" id="login-username")
-                input( type="text" name="location" placeholder="Location" id="login-username")
-                input(id="date" name="date" type="date" )
-                input(type="file" name="event")
+                input( type="text" name="country" placeholder="Country" id="login-username")
+                input( type="text" name="city" placeholder="City" id="login-username")
+                input( type="text" name="local_address" placeholder="Local address" id="login-username")
+                input( type="text" name="contacts" placeholder="Contacts" id="login-username")
+                label(for="date") Input event start date
+                input(id="date" name="event_date" type="datetime-local" value="2018-06-12T19:30" )
+                label(for="file") Upload event cover picture
+                input(type="file" name="event" id="file")
                 label(for="story") Describe you event:
                 textarea(id="story" name="description" rows="5" cols="33")
                 input( type="submit" class="btn primary-color" value="Create" )  

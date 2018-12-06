@@ -1,5 +1,6 @@
 const multer = require("multer");
 const sharp = require("../utils/sharp");
+const formatter = require('../utils/timeFormat');
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, "public/images/event_cover_img/original");
@@ -25,6 +26,10 @@ const Event = require("../models/eventModel");
 
 router.get("/", async (req, res) => {
   const cardInfo = await Event.getEventsForCards();
+  cardInfo.forEach(card => {
+    card.short_date = formatter.shortDate(card.event_date);
+    card.date = formatter.date(card.event_date);
+  })
   console.log(cardInfo);
 
   res.render("homepage", {
@@ -200,8 +205,20 @@ router.use("/create-event", isLoggedIn, async (req, res) => {
    
 
 
-  // await Event.addEvent(eventData);
+  await Event.addEvent(eventData);
   res.redirect("/");
 });
+
+
+router.get('/event/:id', async (req, res) => {
+  const eventId = req.params.id
+  const event = await Event.getEventById(eventId);
+  console.log(event[0]);
+
+  res.render('event-page', {
+    user: req.user,
+    event: event[0]
+  })
+})
 
 module.exports = router;

@@ -1,3 +1,5 @@
+-- User table
+
 create table user
 (
   uId                varchar(128)                        not null,
@@ -25,19 +27,47 @@ create table user
 alter table user
   add primary key (uId);
 
-create table appdb.event
+-- Event table
+
+create table event
 (
-  eId          varchar(128)                          not null,
-  title        text                                  null,
-  description  text                                  null,
-  address      text                                  null,
-  created_date timestamp default current_timestamp() not null,
-  event_date   text                                  not null,
-  creater_id   text                                  null,
-  location     text                                  null,
+  eId                varchar(128)                            not null,
+  title              text                                    null,
+  description        text                                    null,
+  country            text                                    null,
+  city               text                                    null,
+  local_address      text                                    null,
+  contacts           text                                    null,
+  created_date       timestamp default CURRENT_TIMESTAMP     not null,
+  event_date         timestamp default '0000-00-00 00:00:00' not null,
+  creater_id         text                                    null,
+  photo_card_url     text                                    null,
+  photo_original_url text                                    null,
   constraint event_eId_uindex
-  unique (eId)
+    unique (eId)
 );
 
-alter table appdb.event
+alter table event
   add primary key (eId);
+
+
+
+-- Comment table
+
+create table comment
+(
+  cId      varchar(128)                        not null,
+  text     text                                null,
+  date     timestamp default CURRENT_TIMESTAMP null,
+  user_id  varchar(128)                        null,
+  event_id varchar(128)                        null,
+  constraint comment_cId_uindex
+    unique (cId),
+  constraint event_id
+    foreign key (event_id) references event (eId),
+  constraint user_id
+    foreign key (user_id) references user (uId)
+);
+
+alter table comment
+  add primary key (cId);

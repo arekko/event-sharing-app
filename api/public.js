@@ -43,7 +43,7 @@ router.get("/", async (req, res) => {
 //   res.sendFile(path.join(__dirname, "..", "public/index.html"));
 // });
 
-router.get("/login", (req, res) => {
+router.get("*/login", (req, res) => {
   if (req.user) {
     res.redirect("/");
   } else {
@@ -71,7 +71,7 @@ router.get("*/logout", async (req, res) => {
  *
  *
  **/
-router.get("/registration", (req, res) => {
+router.get("*/registration", (req, res) => {
   if (req.user) {
     res.redirect("/");
   } else {

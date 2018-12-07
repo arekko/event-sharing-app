@@ -541,7 +541,6 @@ p {
   /* color: #999; */
 }
 
-
 /* Comments */
 .list-container {
   padding: 0;
@@ -550,8 +549,12 @@ p {
   display: flex;
   list-style-type:none;
   padding: 10px;
+  position: relative;
   
 }
+/* .comm-img-container {
+  display: flex;
+} */
 .comment-img {
   width: 45px;
   height: 45px;
@@ -571,4 +574,14 @@ padding-left: 12px;
 .comm-text {
   font-size: 13px;
   color: #707070;
+}
+.del-icon {
+  margin-left: 10px;
+  font-size: 12px;
+  color: #999;
+  transition: all .3s;
+}
+.del-icon:hover {
+  color: orangered;
+  cursor: pointer;
 }

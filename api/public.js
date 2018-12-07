@@ -1,3 +1,4 @@
+const isAdmin = require("../utils/middleware/isAdmin");
 const multer = require("multer");
 const sharp = require("../utils/sharp");
 const formatter = require("../utils/timeFormat");
@@ -205,7 +206,6 @@ router.use("/create-event", isLoggedIn, async (req, res) => {
   res.redirect("/");
 });
 
-
 router.get("/event/:id", async (req, res) => {
   const eventId = req.params.id;
   const row = await Event.getEventById(eventId);
@@ -213,6 +213,25 @@ router.get("/event/:id", async (req, res) => {
   event.time = formatter.time(event.event_date);
   event.date = formatter.date(event.event_date);
   res.render("event-page", { user: req.user, event: event });
+});
+
+/*
+ * @Delete registration
+ * @desc logout user route
+ *
+ *
+ **/
+router.get("/delete-profile", isLoggedIn, async (req, res) => {
+  const userId = req.user.uId;
+  await User.deleteUserById(userId);
+  req.logout();
+  res.redirect("/");
+});
+
+router.get("/dashboard", isAdmin, (req, res) => {
+  res.render('dashboard', {
+    user: req.user
+  })
 });
 
 module.exports = router;

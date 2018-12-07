@@ -1,40 +1,72 @@
 'use strict';
 
+const eventId = window.location.href.split("/").slice(-1)[0];
+
+const fetchUser = async () => await (await fetch(
+    'http://localhost:3000/api/v1/user/current')).json();
 
 const fetchComments = async eventId =>
   await (await fetch(`/api/v1/comments?eventId=${eventId}`)).json();
 
-const commentTemplate = comm => {
+const deleteComment = async e => {
+  const commentId = e.target.attributes.name.value;
+  console.log(commentId);
+
+  await fetch(`http://localhost:3000/api/v1/comments/${commentId}`, {
+    method: 'DELETE',
+  })
+
+    renderComments(eventId)
+}
+
+const commentTemplate = (comm, userId) => {
+
+  // const delbtn = if (userId === comm.uId)
+
   return `
         <li class="comment-item">
             <div class="comm-img-container">
-                <img src=${comm.photo_url_thumb} alt=${
-    comm.text
-  } class="comment-img rounded" />
+              <a href="/profile/${comm.uId}">
+                <img src=${comm.photo_url_thumb} alt=${ comm.text } class="comment-img rounded" />
+                </a>
             </div>
             <div class="comm-body">
-                <span class="comm-username">${comm.firstname} ${
-    comm.lastname
-  }</span>
+                <span class="comm-username">${comm.firstname} ${ comm.lastname }</span>
                 <span class="comm-date">${comm.date}</span>
+                ${userId === comm.uId ? `<i class="fas fa-times del-icon" name="${comm.cId}"></i>` : ''}
+                
                 <p class="comm-text">${comm.text}</p>
             </div>
-
-
         </li>
     `;
 };
 
 const renderComments = async eventId => {
+  const user = await fetchUser()
+  let userId;
+  if (user) {
+    userId = user.uId;
+  }
   const listContainer = document.getElementById("list-container");
   const comments = await fetchComments(eventId);
   let html = "";
-  comments.message.forEach(comm => {
-    const commEl = commentTemplate(comm);
-    html = " " + commEl + html;
-    // listContainer.innerHTML = commEl;
-  });
-  listContainer.innerHTML = html;
+  console.log(comments);
+  if (comments.message !== null) {
+
+    comments.message.forEach(comm => {
+      const commEl = commentTemplate(comm, userId);
+      html = " " + commEl + html;
+
+      // listContainer.innerHTML = commEl;
+    });
+    listContainer.innerHTML = html;
+    const deleteBtn = document.querySelectorAll('.del-icon');
+    deleteBtn.forEach(el => el.addEventListener('click', (e) => deleteComment(e)))
+  } else {
+    
+    listContainer.innerHTML = 'No comments yet ...';
+  }
+  
 };
 
 // Post the comment
@@ -66,7 +98,7 @@ const postComment = async (e, eventId) => {
 // };
 
 const main = async () => {
-  const eventId = window.location.href.split("/").slice(-1)[0];
+  // const eventId = window.location.href.split("/").slice(-1)[0];
 
   //   const comments = await fetchComments(eventId);
   //   console.log(comments);

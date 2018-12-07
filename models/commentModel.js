@@ -62,6 +62,19 @@ class Comment {
       console.error(e);
     }
   }
+
+  static async deleteById(id) {
+
+    try {
+      const [rows] = await promisePool.query(
+        `DELETE FROM comment WHERE cId = ?`,
+        [id]
+      );
+      return rows;
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }
 
 module.exports = Comment;

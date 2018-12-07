@@ -26,7 +26,9 @@ router.delete("/users/:id", isLoggedIn, async (req, res) => {
   const userId = req.params.id;
   await User.deleteUserById(userId);
 
-  res.redirect("/");
+  res.send({
+    message: "ok"
+  });
 });
 
 router.patch("/users", isLoggedIn, async (req, res) => {
@@ -38,6 +40,5 @@ router.patch("/users", isLoggedIn, async (req, res) => {
   });
 });
 // TODO GET all users, getuserbyid, deleteuserbyid, updateuser
-
 
 module.exports = router;

@@ -39,4 +39,13 @@ router.post("/", isLoggedIn, async (req, res) => {
   res.json(comment);
 });
 
+router.delete('/:id', isLoggedIn, async (req, res) => {
+  const commentId  = req.params.id;
+  await Comment.deleteById(commentId);
+  res.send({
+    message: 'ok'
+  })
+
+})
+
 module.exports = router;

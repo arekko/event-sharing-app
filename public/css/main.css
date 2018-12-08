@@ -501,8 +501,9 @@ color: #707070;
 /* Event page */
 
 .event-content-container {
-  width: 80%;
+  /* width: 80%; */
   display: flex;
+  justify-content: center;
   margin: 0 auto;
 }
 .event-info-container {
@@ -576,6 +577,9 @@ color: #707070;
 }
 .add-comment-button {
   /* color: #999; */
+}
+.responses {
+  color: #707070;
 }
 
 /* Comments */

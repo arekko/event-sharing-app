@@ -42,7 +42,13 @@ const commentTemplate = (comm, userId) => {
 };
 
 const renderComments = async eventId => {
+  let user;
+  try {
+
   const user = await fetchUser()
+  } catch(e) {
+    console.log(e);
+  }
   let userId;
   if (user) {
     userId = user.uId;
@@ -63,8 +69,12 @@ const renderComments = async eventId => {
     const deleteBtn = document.querySelectorAll('.del-icon');
     deleteBtn.forEach(el => el.addEventListener('click', (e) => deleteComment(e)))
   } else {
-    
-    listContainer.innerHTML = 'No comments yet ...';
+
+    const noComm = document.createElement('p');
+    noComm.className = "no-comm"
+    noComm.innerHTML = "No comments yet ..."
+    listContainer.appendChild(noComm) 
+    // listContainer.innerHTML = 'No comments yet ...';
   }
   
 };

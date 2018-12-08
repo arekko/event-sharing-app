@@ -13,6 +13,16 @@ class Event {
       console.error(e);
     }
   }
+static async getEventsByUserId (id) {
+    try {
+      const [rows] = await promisePool.query(
+        `Select * from event WHERE creater_id = ?`, [id]
+      );
+      return rows;
+    } catch (e) {
+      console.error(e);
+    }
+  }
   static async getEventById(id) {
     try {
       const [rows] = await promisePool.query(
@@ -51,7 +61,9 @@ class Event {
           from 
             event, 
             user 
-          where user.uId = event.creater_id`
+          where user.uId = event.creater_id
+          ORDER BY created_date DESC
+          `
       );
       return rows;
     } catch (e) {

@@ -39,13 +39,21 @@ router.post("/", isLoggedIn, async (req, res) => {
   res.json(comment);
 });
 
-router.delete('/:id', isLoggedIn, async (req, res) => {
-  const commentId  = req.params.id;
+router.delete("/:id", isLoggedIn, async (req, res) => {
+  const commentId = req.params.id;
   await Comment.deleteById(commentId);
   res.send({
-    message: 'ok'
-  })
+    message: "ok"
+  });
+});
 
-})
+
+
+router.get("/user/:userId", isLoggedIn, async (req, res) => {
+    const userId = req.params.userId;
+    console.log(userId);
+    const comments = await Comment.getCommentsByUserId(userId);
+    res.send(comments);
+  });
 
 module.exports = router;

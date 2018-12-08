@@ -3,7 +3,8 @@ const promisePool = require("../utils/database");
 class Comment {
   static async getCustomComments(eventId) {
     try {
-        const [rows] = await promisePool.query(`
+      const [rows] = await promisePool.query(
+        `
           select
                 comment.cId,
                 comment.text,
@@ -20,7 +21,9 @@ class Comment {
           AND 
             comment.event_id = ?
           ORDER BY date ASC
-          `, [eventId]);
+          `,
+        [eventId]
+      );
       return rows;
     } catch (e) {
       console.error(e);
@@ -62,9 +65,18 @@ class Comment {
       console.error(e);
     }
   }
-
+  static async getCommentsByUserId(userId) {
+    try {
+      const [rows] = await promisePool.query(
+        `Select * from comment WHERE user_id = ?`,
+        [userId]
+      );
+      return rows;
+    } catch (e) {
+      console.error(e);
+    }
+  }
   static async deleteById(id) {
-
     try {
       const [rows] = await promisePool.query(
         `DELETE FROM comment WHERE cId = ?`,

@@ -20,6 +20,34 @@ const deleteUser = async userId => {
   renderUsers();
 };
 
+const changeRole = async (userId, isAdmin) => {
+  let body;
+  console.log(isAdmin);
+  if (isAdmin) {
+     body = JSON.stringify({
+      isAdmin: 0
+    })
+  } else {
+     body = JSON.stringify({
+      isAdmin: 1
+    })
+  }
+  
+
+  console.log(body);
+
+
+  await fetch(`http://localhost:3000/api/v1/user/users/${userId}`, {
+    method: 'post',
+     headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: body
+  })
+  renderUsers()
+}
+
 const fetchUser = async () =>
   await (await fetch("http://localhost:3000/api/v1/user/current")).json();
 
@@ -60,6 +88,7 @@ const showDetails = async userId => {
 
 const renderUsers = async () => {
   const users = await fetchUsers();
+  console.log(users);
   const currentUser = await fetchUser();
   console.log(users);
   const dbContent = document.getElementsByClassName("dashboard-list")[0];
@@ -92,6 +121,7 @@ const renderUsers = async () => {
     if (currentUser.uId !== user.uId) {
       itemEl.appendChild(delBtn);
       itemEl.appendChild(showAllBtn);
+      userRole.addEventListener('click', e => changeRole(user.uId, user.isAdmin))
     }
 
     dbContent.appendChild(itemEl);

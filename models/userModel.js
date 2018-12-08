@@ -76,13 +76,14 @@ class User {
   }
 
   static async updateCurrentUser(userId, newUserData) {
+    console.log(newUserData);
     const updateData = [];
     for (const key in newUserData) {
       updateData.push(`${key} = "${newUserData[key]}"`);
     }
     try {
       await promisePool.execute(
-        `UPDATE user SET ${updateData} WHERE uId = "${userId}" `
+        `UPDATE user SET ${updateData} WHERE uId = ?`, [userId]
       );
     } catch (e) {
       console.error(e);
@@ -101,6 +102,15 @@ class User {
   }
 
   static async deleteUserById(id) {
+    try {
+      await promisePool.query("DELETE FROM user WHERE uId = ?", [id]);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+
+  static async changeUserRole (userId) {
     try {
       await promisePool.query("DELETE FROM user WHERE uId = ?", [id]);
     } catch (e) {

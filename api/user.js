@@ -31,8 +31,16 @@ router.delete("/users/:id", isLoggedIn, async (req, res) => {
   });
 });
 
-router.patch("/users", isLoggedIn, async (req, res) => {
-  const userId = req.user.uId;
+router.post("/users/:id?", isLoggedIn, async (req, res) => {
+  let userId;
+  if (req.params.id) {
+    userId = req.params.id
+  } else {
+
+   userId = req.user.uId;
+  }
+
+  console.log(userId , req.body);
 
   await User.updateCurrentUser(userId, req.body);
   res.json({

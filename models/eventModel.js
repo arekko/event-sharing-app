@@ -70,6 +70,17 @@ static async getEventsByUserId (id) {
       console.error(e);
     }
   }
+
+ static async deleteEventById(eventId) {
+    try {
+        await promisePool.execute(
+        `DELETE FROM event WHERE eId = ?`,
+        [eventId]
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }
 
 module.exports = Event;

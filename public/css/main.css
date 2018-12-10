@@ -321,6 +321,7 @@ p {
   background-color: #fff;
   padding: 20px;
   margin: 10px;
+  max-height: max-content;
 }
 
 .avatar-section {
@@ -602,9 +603,9 @@ color: #707070;
   font-weight: bold;
 }
 .event-title {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: bold;
-  color: #111;
+  color: #343a40;
 }
 .event-page-img {
   width: 100%;
@@ -615,6 +616,21 @@ color: #707070;
   font-size: 18px;
   margin-right: 15px;
 }
+.event-date {
+  color: #707070;
+  font-size: 14px;
+  font-weight: normal;
+}
+.event-location {
+  color: #707070;
+}
+.event-details {
+  font-size: 13px;
+  color: #343a40;
+}
+.event-time {
+  color: #3cb46e;
+}
 .mb {
   margin-bottom: 10px;
 }
@@ -623,6 +639,7 @@ color: #707070;
 }
 .event-description {
   font-size: 18px;
+  color: #343a40;
 }
 .event-comments-container {
   margin: 10px;

@@ -20,7 +20,7 @@ const deleteComment = async e => {
 }
 
 const commentTemplate = (comm, userId) => {
-
+  console.log(comm.uId, userId)
   // const delbtn = if (userId === comm.uId)
 
   return `
@@ -45,7 +45,8 @@ const renderComments = async eventId => {
   let user;
   try {
 
-  const user = await fetchUser()
+    user = await fetchUser();
+
   } catch(e) {
     console.log(e);
   }

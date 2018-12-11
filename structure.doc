@@ -1,0 +1,51 @@
+<! Routes folder --
+--AUTH--
+// auth login
+// auth logout
+// auth with google+/facebook/github
+// callback route to redirect to after auth
+
+--User Profile page--
+/* check for auth of user
+/*if not auth => redirect to auth login
+*/else render profile page
+
+--Search--
+/*Query the database for details matching any combination of words in search bar
+/*Order results based on most words found to least..
+*/If none request for a new search
+
+--Each Event page--
+/* check for auth of user
+/*if not auth => {
+/*render event name, date, place/address, time, event creater, show how many likes it has/followers, comments to the post }
+*/else{ 
+/*    show all the above plus abilty to like/follow, add comments, view more details of the event creator, get updates concerning liked events if changed through email.
+/*}
+
+--Notifications --
+//Icon => list all updates to an auth user for events they have liked/followed
+//Server counter that checks how long a user last logged in and if > too long => send an email notification of new events created
+
+-->
+
+<! Database folder --
+//user data to be stored
+//events data to be stored
+
+-->
+
+<! Views folder --
+//home.html
+//login.html
+//profile.html
+//event.html
+
+-->
+
+<! .env file / config folder --
+//keys for access to google+/facebook/github if implemented
+//keys to the Database
+//keys for session using cookies
+
+-->

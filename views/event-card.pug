@@ -1,0 +1,21 @@
+
+- const shortDate = card.short_date.split(" ")[0];
+- const shortMonth = card.short_date.split(" ")[1];
+
+
+.card-container
+  a(href='/event/' + card.eId)
+    .card-img-container
+      img(src=card.photo_card_url, alt=card.title class="card-image")
+      .card-date-icon-container
+        span.short-date #{shortDate}
+        span.short-month #{shortMonth}
+    .card-body-container
+      span.card-date #{card.date}
+      h5.card-title #{card.title}
+  a(href="/profile/" + card.uId)
+    .card-user-info-container 
+      img(src=card.photo_url_thumb, alt=card.username class="rounded")
+      span.card-hosted Hosted by
+      p.card-username #{card.firstname} #{card.lastname}
+    

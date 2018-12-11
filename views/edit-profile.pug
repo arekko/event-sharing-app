@@ -1,0 +1,23 @@
+extend base
+block content
+    include header
+
+
+    div.profile-edit
+        .form-container
+            h3 Edit Profile
+            if message.length > 0 
+                p.alert-message #{message}
+            form(action="/edit-profile" method="post")
+                input( type="text" name="firstname" placeholder="Firstname" id="login-username" )
+                input( type="text" name="lastname" placeholder="Lastname" id="login-username")
+                input( type="text" name="age" placeholder="Age" id="login-username")
+                input( type="text" name="username" placeholder="Username" id="login-username")
+                input( type="text" name="country" placeholder="Country" id="login-username")
+                input( type="text" name="city" placeholder="City" id="login-username")
+                input( type="text" name="instagram_url" placeholder="Instagram" id="login-username")
+                input( type="text" name="facebook_url" placeholder="Facebook" id="login-username")
+                label(for="story") Tell us your story:
+                textarea(id="story" name="bio" rows="5" cols="33")
+                input( type="submit" class="btn primary-color" value="Join" )  
+

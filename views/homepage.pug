@@ -1,0 +1,12 @@
+
+extend base.pug
+block content
+    include header
+
+    .search-container
+        img(src="/images/public_img/cover.jpeg", alt="header")
+
+
+    .cards-holder
+        each card in cardInfo
+            include event-card

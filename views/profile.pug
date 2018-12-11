@@ -1,0 +1,48 @@
+
+
+
+
+
+extend base.pug
+block content
+    include header
+    .profile-container
+      .profile-content
+        div.avatar-section.section
+            .profile-img-container
+                img(src=userpr.photo_url_original, alt=userpr.username)
+                .change-photo-container
+                    i(class="fas fa-file-upload")
+                    span Change photo
+            if canUpdate
+                a(href="/edit-profile" class="btn edit-profile-btn") Edit
+                a(href="/change-password" class="btn edit-profile-btn") Change password 
+                a(href="/delete-profile" class="btn edit-profile-btn") Delete profile 
+
+        div.bio-section.section
+            h2.profile-username #{userpr.firstname} #{userpr.lastname}
+            if (user.age)
+               span.user-age #{user.age} years old
+            if user.country 
+                .profile-location
+                    i(class="fas fa-map-marker-alt location-fa")
+                    span.profile.country #{userpr.country},
+                    span.profile-city #{userpr.city}
+            //- .social-media
+            //-     a(href=user.email)
+            //-         i(class="far fa-envelope")
+            //-     if user.facebook_link
+            //-         a(href=user.facebook_link)
+            //-             i(class="fab fa-facebook-square")
+            //-     if user.instagram_link
+            //-         a(href=user.instagram_link)
+            //-             i(class="fab fa-instagram")
+
+            if user.bio
+                h4.h4-title About me
+                p.profile-bio #{user.bio}
+        
+    
+                
+        //- h1 H#{userpr.firstname} #{userpr.lastname}ello #{userpr.firstname} #{userpr.lastname}
+        //- p #{canUpdate}

@@ -1,0 +1,28 @@
+
+
+extends base
+block content
+  div.login-container
+    div(class='form-container')
+      h3.h3-title Join Evoo
+      p Already have an account? 
+        a(href="/login" class="form-link") Login
+      if message.length > 0 
+      p.alert-message #{message}
+      
+      form(
+            class="register-form"
+            action="http://localhost:3000/api/v1/auth/registration"
+            id="register-form"
+            method="post"
+            enctype="multipart/form-data"
+          )
+
+        input( type="text" name="firstname" placeholder="Firstname" id="login-username" required )
+        input( type="text" name="lastname" placeholder="Lastname" id="login-username" required)
+        input( type="email" name="email" placeholder="Email" id="login-username" required)
+        input( type="text" name="username" placeholder="Username" id="login-username" required)
+        input( type="password" name="password" placeholder="Password" id="login-password" required)
+        input( type="file" name="avatar" required)  
+        input( type="submit" name="submit-btn" class="btn primary-color" value="Join" )  
+        

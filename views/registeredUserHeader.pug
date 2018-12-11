@@ -1,0 +1,19 @@
+header(class='header')
+  div(class='header-container')
+    a(href="/" class="logo-link")
+      .logo-container
+        i(class="far fa-calendar fa-logo")
+        .logo-text-container
+          span(class='header-logo') Evoo
+          span.header-sublogo Fun events
+    ul(class='header-auth-btns')
+      if user.isAdmin == true
+        li
+          a(href="/dashboard") Dashboard
+      li
+        a(href="/create-event" class="") Create new event
+      li
+        a(href='/profile/' + user.uId) Profile
+      li
+        a(href='./logout' class='header-auth-btn btn--green') Logout
+
